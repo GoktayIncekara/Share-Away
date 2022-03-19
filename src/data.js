@@ -45,41 +45,41 @@ export const sliderItems = [
     },
     {
       id: 5,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "http://server2585.servers-servers.com/~construc/wp-content/uploads/2021/01/hero_home-5.jpeg",
       title: "Home",
     },
     {
       id: 6,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      img: "https://foodtank.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg",
       title: "Books",
     },
     {
       id: 7,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "https://www.bellybelly.com.au/wp-content/uploads/2013/10/when-do-babies-start-talking.jpg",
       title: "Baby",
     },
     {
       id: 8,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "https://upload.wikimedia.org/wikipedia/commons/5/58/Fun._band.jpg",
       title: "Fun",
     },
     {
       id: 9,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      img: "https://airtech-hygiene.com/wp-content/uploads/2020/11/El-Yikama-Virus-463x348.jpg",
       title: "Hygiene",
     },
     {
       id: 10,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      img: "https://ichef.bbci.co.uk/news/976/cpsprodpb/6693/production/_111995262_gettyimages-1139930327.jpg",
       title: "School",
     },
     {
       id: 11,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "https://i.hurimg.com/i/hdn/75/0x0/5d9c3c16c9de3d2218fa45f3.jpeg",
       title: "Elderly",
     },{
       id: 12,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "https://www.gomeltourist.com/wp-content/uploads/2021/11/Travel.jpg",
       title: "Travel",
     },
   ];

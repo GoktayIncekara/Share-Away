@@ -8,9 +8,9 @@ const Container = styled.div`
 `
 const CategoriesContainer = styled.div`
     display: flex;
-    padding: 50px 200px;
+    padding: 30px 200px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     ${mobile({padding: "0px", flexDirection: "column"})};
 `
 const Title = styled.h1`
@@ -18,6 +18,7 @@ const Title = styled.h1`
     font-size: 900;
     color: #35858B;
     text-align: center;
+    margin-top: 80px;
 `
 
 const Categories = () => {

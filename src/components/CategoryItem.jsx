@@ -1,57 +1,39 @@
+import { Card, CardActionArea, CardMedia , CardContent, CardActions} from "@mui/material"
 import styled from "styled-components"
 import {mobile} from "../responsive"
+import { makeStyles} from '@material-ui/core'
+import { Typography } from "@mui/material"
+import { sizing } from '@material-ui/system'
 
-const Container = styled.div`
-  margin: 3px;
-  height: 25vh;
-  width: 20vw;
-  position: relative;
-  
-`
-const Image = styled.img`
-    display: block;
-    margin: auto;
-    height: auto;
-    max-height: 100%;
-    width: auto;
-    max-width: 100%;
-    object-fit: cover;
-    ${mobile({height: "22vh"})};
-`
-const Info = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-const Title = styled.h1`
-  color: white;
-`
-const Button = styled.button`
-  margin-top: 20px;
-  border: none;
-  padding: 10px;
-  background-color: white;
-  color: gray;
-  cursor: pointer;
-  font-weight: 600;
-`
+const useStyles = makeStyles((theme) => ({
+  card: {
+      marginBottom: theme.spacing(5),
+      marginRight: theme.spacing(5),
+      margin: "3px",
+      display: "inline-block"
+  },
+  image: {
+    height: "30vh",
+  }
+}));
 
 const CategoryItem = ({item}) => {
+  const classes = useStyles();
   return (
-    <Container>
-        <Image src={item.img}/>
-        <Info>
-          <Title>{item.title}</Title>
-          <Button>Check It Out</Button>
-        </Info>
-    </Container>
+    <Card className={classes.card} sx={{ width: 1/4 }}>
+      <CardActionArea>
+        <CardMedia 
+        component="img"
+        image={item.img}
+        className={classes.image}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
 
