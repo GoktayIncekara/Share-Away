@@ -19,6 +19,7 @@ const Title = styled.h1`
     color: #35858B;
     text-align: center;
     margin-top: 80px;
+    margin-bottom: 40px;
 `
 
 const Categories = () => {

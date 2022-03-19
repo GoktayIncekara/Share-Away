@@ -1,4 +1,3 @@
-//import { Search, ShoppingCartOutlined } from '@material-ui/icons'
 import styled from 'styled-components'
 import logoImage from "../pictures/s.png"
 import PersonIcon from '@mui/icons-material/Person';

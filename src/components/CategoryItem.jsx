@@ -10,7 +10,11 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(5),
       marginRight: theme.spacing(5),
       margin: "3px",
-      display: "inline-block"
+      display: "inline-block",
+
+      [theme.breakpoints.up("sm")]: {
+        width: "25%"
+    }  
   },
   image: {
     height: "30vh",
@@ -20,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const CategoryItem = ({item}) => {
   const classes = useStyles();
   return (
-    <Card className={classes.card} sx={{ width: 1/4 }}>
+    <Card className={classes.card}>
       <CardActionArea>
         <CardMedia 
         component="img"
