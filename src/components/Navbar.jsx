@@ -3,6 +3,7 @@ import logoImage from "../pictures/s.png"
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import {mobile} from "../responsive"
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -24,8 +25,9 @@ const useStyles = makeStyles((theme) => ({
             color:"white",
         },
         [theme.breakpoints.down("sm")]: {
-            height: "40px",
-            width: "160px"
+            height: "30px",
+            width: "160px",
+            margin: "5px 0px"
         }
 
     },
@@ -62,6 +64,7 @@ const Right = styled.div`
     align-items: center;
     margin-right: 30px;
     justify-content: flex-end;
+    ${mobile({flexDirection:"column"})};
 `
 const MenuItem = styled.div`
     margin-left: 25px;

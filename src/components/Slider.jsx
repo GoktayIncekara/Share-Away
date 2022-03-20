@@ -33,7 +33,7 @@ const ExplanationContainer = styled.div`
     width: auto;
     height: 42vh;
     display: flex;
-    margin-top: 70px;
+    margin-top: 90px;
     padding: 10px;
     align-items: center;
     background-color: #35858B;
