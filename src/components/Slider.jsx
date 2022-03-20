@@ -26,8 +26,35 @@ const useStyles = makeStyles((theme) => ({
 
     }  
 }));
-
 const Container = styled.div`
+
+`
+const ExplanationContainer = styled.div`
+    width: auto;
+    height: 42vh;
+    display: flex;
+    margin-top: 70px;
+    padding: 10px;
+    align-items: center;
+    background-color: #35858B;
+    flex-direction: column;
+    display: none;
+    ${mobile({display: "block"})};
+`
+const ExplanationTitle = styled.h1`
+    font-size: 70px;
+    color: white;
+    margin-right: 20px;
+    text-align: center;
+`
+const ExplanationDesc = styled.p`
+    margin: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: white;
+`
+const SliderContainer = styled.div`
     width: 100%;
     height: 80vh;
     display: flex;
@@ -90,7 +117,6 @@ const Desc = styled.p`
     font-weight: 500;
     letter-spacing: 3px;
     color: white;
-
 `
 
 
@@ -107,32 +133,38 @@ const Slider = () => {
     };
   return (
     <Container>
-        <Arrow direction="left" onClick={() => handleClick("left")}>
-            <ArrowLeftOutlined/>
-        </Arrow>
-        <Wrapper slideIndex= {slideIndex}>
-            {sliderItems.map((item) => (
-                <Slide bg={item.bg} key={item.id}>
-                    <ImgContainer>
-                        <Image src={item.img}/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>{item.title}</Title>
-                        <Desc>{item.desc}</Desc>
-                        <Button
-                          variant="contained"
-                          size="large"
-                          className={classes.button}
-                      >
-                      Start Helping
-                      </Button>
-                    </InfoContainer>
-                </Slide>
-            ))}
-        </Wrapper>
-        <Arrow direction="right" onClick={() => handleClick("right")}>
-            <ArrowRightOutlined/>
-        </Arrow>
+        <ExplanationContainer>
+            <ExplanationTitle>Share Away</ExplanationTitle>
+            <ExplanationDesc>What you don't need anymore might be what someone else is looking for</ExplanationDesc>
+        </ExplanationContainer>
+        <SliderContainer>
+            <Arrow direction="left" onClick={() => handleClick("left")}>
+                <ArrowLeftOutlined/>
+            </Arrow>
+            <Wrapper slideIndex= {slideIndex}>
+                {sliderItems.map((item) => (
+                    <Slide bg={item.bg} key={item.id}>
+                        <ImgContainer>
+                            <Image src={item.img}/>
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>{item.title}</Title>
+                            <Desc>{item.desc}</Desc>
+                            <Button
+                            variant="contained"
+                            size="large"
+                            className={classes.button}
+                        >
+                        Start Helping
+                        </Button>
+                        </InfoContainer>
+                    </Slide>
+                ))}
+            </Wrapper>
+            <Arrow direction="right" onClick={() => handleClick("right")}>
+                <ArrowRightOutlined/>
+            </Arrow>
+        </SliderContainer>
     </Container>
   )
 }

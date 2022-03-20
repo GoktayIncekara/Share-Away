@@ -4,14 +4,14 @@ import CategoryItem from "./CategoryItem"
 import {mobile} from "../responsive"
 
 const Container = styled.div`
-
+  
 `
 const CategoriesContainer = styled.div`
     display: flex;
     padding: 30px 200px;
     flex-wrap: wrap;
     justify-content: center;
-    ${mobile({padding: "0px", flexDirection: "column"})};
+    ${mobile({padding: "10px", flexDirection: "column"})};
 `
 const Title = styled.h1`
     font-weight: 900;
@@ -20,6 +20,7 @@ const Title = styled.h1`
     text-align: center;
     margin-top: 80px;
     margin-bottom: 40px;
+    ${mobile({marginTop: "50px", marginBottom: "10px"})};
 `
 
 const Categories = () => {
