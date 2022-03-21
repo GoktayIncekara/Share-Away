@@ -3,6 +3,7 @@ import Categories from '../components/Categories'
 import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
 import Footer from "../components/Footer"
+import Report from '../components/Report'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Navbar />
       <Slider />
       <Categories />
+      <Report />
       <Footer />
     </div>
   )
