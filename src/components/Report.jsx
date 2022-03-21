@@ -38,6 +38,13 @@ const Input = styled.a`
     border: none;
     flex: 8;
     padding-left: 20px;
+    text-decoration: none;
+    text-align: center;
+    color: #35858B;
+    font-size: 22px;
+    font-weight: 400;
+    padding-top: 6px;
+    ${mobile({fontSize: "18px", marginTop: "3px"})};
 `
 const Button = styled.button`
     flex: 1;
@@ -51,7 +58,9 @@ const Report = () => {
           <Title>Report To Us</Title>
           <Desc>Please report us to any bad usage of the website!</Desc>
           <InputContainer>
-              <Input href="mailto:shareaway@info.com" placeholder="What is the problem?"/>
+              <Input href="mailto:shareaway@info.com">
+              What is the problem?
+              </Input>
               <Button>
                 <Send/>
               </Button>
