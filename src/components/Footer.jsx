@@ -1,6 +1,7 @@
 import { Facebook, Instagram, LinkedIn, MailOutline, Phone, Room, YouTube } from "@material-ui/icons"
 import styled from "styled-components"
 import {mobile} from "../responsive"
+import React from 'react';
 
 const Container = styled.div`
     display: flex;

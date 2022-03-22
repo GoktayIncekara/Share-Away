@@ -1,5 +1,6 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import styled from "styled-components"
+import React from 'react';
 
 const Info = styled.div`
     opacity: 0;

@@ -2,10 +2,10 @@ import styled from "styled-components"
 import Navbar from "../components/Navbar"
 import Report from "../components/Report"
 import Footer from "../components/Footer"
-import { Add, Remove } from "@material-ui/icons"
 import {mobile} from "../responsive"
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { Button, makeStyles} from '@material-ui/core';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
     button: {

@@ -4,6 +4,7 @@ import Products from "../components/Products"
 import Report from "../components/Report"
 import Footer from "../components/Footer"
 import {mobile} from "../responsive"
+import React from 'react';
 
 const Container = styled.div`
     

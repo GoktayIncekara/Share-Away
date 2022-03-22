@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { categories } from "../data"
 import CategoryItem from "./CategoryItem"
 import {mobile} from "../responsive"
+import React from 'react';
 
 const Container = styled.div`
   

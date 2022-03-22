@@ -1,9 +1,7 @@
-import { Card, CardActionArea, CardMedia , CardContent, CardActions} from "@mui/material"
-import styled from "styled-components"
-import {mobile} from "../responsive"
+import { Card, CardActionArea, CardMedia , CardContent} from "@mui/material"
 import { makeStyles} from '@material-ui/core'
 import { Typography } from "@mui/material"
-import { sizing } from '@material-ui/system'
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   card: {
