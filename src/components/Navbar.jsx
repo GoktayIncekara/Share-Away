@@ -10,14 +10,15 @@ const useStyles = makeStyles((theme) => ({
     toolbar: {
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: "#35858B"
+        backgroundColor: "#4fbdba"
     },
     button: {
-        backgroundColor: "#4FBDBA",
+        backgroundColor: "#FFFFFF",
         border: '2px solid #AEFEFF',
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
+        color:"#ff9f1c",
         
 
         '&:hover': {

@@ -5,7 +5,7 @@ import React from 'react';
 
 const Container = styled.div`
     display: flex;
-    background-color: #35858B;
+    background-color: #4fbdba;
     ${mobile({flexDirection: "column"})};
 `
 const Left = styled.div`
