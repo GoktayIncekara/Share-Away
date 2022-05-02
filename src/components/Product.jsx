@@ -67,7 +67,7 @@ const Product = ({item}) => {
     <Link to = {`/product/${item.id}`}>  
         <Container>
             <Circle />
-            <Image src={item.img} />
+            <Image src={item.imgArray[0].img} />
             <Info>
                 <Icon>
                     <VisibilityIcon />

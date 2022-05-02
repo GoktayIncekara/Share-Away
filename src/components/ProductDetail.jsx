@@ -3,6 +3,10 @@ import {mobile} from "../responsive"
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { Button, makeStyles} from '@material-ui/core';
 import React from 'react';
+import { useParams } from "react-router-dom";
+import { popularProducts } from "../data"
+import ProductSlider from './ProductSlider'
+import UserShortInfo from "./UserShortInfo";
 
 
 
@@ -30,20 +34,25 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Wrapper = styled.div`
-    padding: 6vh;
+    padding: 10vh;
     padding-top: 15vh;
     display:flex;
     ${mobile({flexDirection: "column"})};
 `
 const ImgContainer = styled.div`
     flex: 1;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vh;
 `
-const Image = styled.img`
-    width: 100%;
-    height: 90vh;
+/*const Image = styled.img`
+    height: 80%;
     object-fit: cover;
+    align-items: center;
     ${mobile({height: "30vh"})};
-`
+`*/
 const InfoContainer = styled.div`
     flex: 1;
     padding: 0px 50px;
@@ -60,21 +69,26 @@ const Desc = styled.p`
 
 
 const ProductDetail = () =>{
+    const { id } = useParams()
+    let currentItem = popularProducts.find(item => item.id === parseInt(id));
+
+    console.log(currentItem);
     const classes = useStyles();
     return(
         <Wrapper>
         <ImgContainer>
-            <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+            <ProductSlider product={currentItem}/>
         </ImgContainer>
         <InfoContainer>
-            <Title>Denim Jumpsuit</Title>
-            <Desc>Beautiful denim jumpsuit for daily usage.</Desc>
+            <Title>{currentItem.name}</Title>
+            <Desc>{currentItem.desc}</Desc>
             <Button
             variant="contained"
             size="large"
             className={classes.button}
             endIcon={<ContactPageIcon/>}
             >Request It </Button>
+            <UserShortInfo userId={currentItem.userId} />
         </InfoContainer>
         </Wrapper>
     )

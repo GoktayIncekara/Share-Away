@@ -13,7 +13,7 @@ const Product = () => {
   return (
     <Container>
         <Navbar />
-        <ProductDetail/>
+        <ProductDetail />
         <Report />
         <Footer />
     </Container>
