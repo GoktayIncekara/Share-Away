@@ -1,12 +1,15 @@
 import styled from "styled-components"
 import {mobile} from "../responsive"
-import ContactPageIcon from '@mui/icons-material/ContactPage';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { Button, makeStyles} from '@material-ui/core';
 import React from 'react';
 import { useParams } from "react-router-dom";
 import { popularProducts } from "../data"
 import ProductSlider from './ProductSlider'
 import UserShortInfo from "./UserShortInfo";
+import {users} from "../data"
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 
 
 
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
-        
+        width: "42vw",
 
         '&:hover': {
             backgroundColor: "#072227",
@@ -31,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
     }  
 }));
-
 
 const Wrapper = styled.div`
     padding: 10vh;
@@ -60,17 +62,43 @@ const InfoContainer = styled.div`
     ${mobile({padding: "0px"})};
     ${mobile({marginTop: "10px"})};
 `
-const Title = styled.h1`
-    font-weight: 200;
+const AdInfo =styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
 `
+
+const Title = styled.h1`
+    color: #35858B;
+`
+
+const Location = styled.p`
+    display: inline-flex;
+    align-items: flex-end;
+    color: gray;
+`
+const UploadDate = styled.p`
+    display: inline-block;
+    color: gray;
+`
+
 const Desc = styled.p`
     margin: 20px 0px;
 `
+const ShipInfo = styled.p`
+    color: gray;
+    display: flex;
+
+
+`
+const blankSpace = "   "
 
 
 const ProductDetail = () =>{
     const { id } = useParams()
     let currentItem = popularProducts.find(item => item.id === parseInt(id));
+    let currentUser = users.find(user => user.id === currentItem.userId);
 
     console.log(currentItem);
     const classes = useStyles();
@@ -81,14 +109,22 @@ const ProductDetail = () =>{
         </ImgContainer>
         <InfoContainer>
             <Title>{currentItem.name}</Title>
+            <AdInfo>
+            <Location> {<LocationOnIcon/>}  {currentUser.district}, {currentUser.city}</Location>
+            <br/>
+            <UploadDate> {currentItem.uploadDate} </UploadDate>
+            </AdInfo>
+            <ShipInfo> {<LocalShippingIcon />} {blankSpace} Shipping Options:  {currentItem.shipping.toString()}
+            </ShipInfo>
             <Desc>{currentItem.desc}</Desc>
+
+            <UserShortInfo userId = {currentItem.userId} />
             <Button
             variant="contained"
             size="large"
             className={classes.button}
-            endIcon={<ContactPageIcon/>}
-            >Request It </Button>
-            <UserShortInfo userId={currentItem.userId} />
+            endIcon={<MailOutlineIcon />}
+            >Send Message</Button>
         </InfoContainer>
         </Wrapper>
     )

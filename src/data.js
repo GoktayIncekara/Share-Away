@@ -90,14 +90,20 @@ export const sliderItems = [
       name:"T-shirt",
       imgArray:[{id:1, img: "https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png", bg: "072227",}, {id:2, img: "https://cdn2.sorsware.com/addax/ContentImages/Product/2019-yaz-sezonu/ADX-0000020813/oversize-baskili-t-shirt-p9344-d5_adx-0000020813_fume-gri_2_buyuk.jpg", bg: "072227",}],
       desc: "Amazing",
-      userId : 2
+      userId : 2,
+      shipping: ["cargo", "pickup"],
+      uploadDate : "02.05.2022"
     },
     {
       id:2,
       name:"Jacket",
       imgArray:[{id:1, img: "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",}, {id:2, img: "https://cdn2.sorsware.com/addax/ContentImages/Product/2019-yaz-sezonu/ADX-0000020813/oversize-baskili-t-shirt-p9344-d5_adx-0000020813_fume-gri_2_buyuk.jpg"}],
       desc: "Beautiful denim jumpsuit for daily usage.",
-      userId : 1
+      userId : 1,
+      shipping: ["cargo"],
+      uploadDate : "02.05.2022"
     },
   ]
-  export const users=[{id:1, name: "İlayda", surname: "Özel", email: "ilayda@gmail.com", phone:"015237722992", address:"123 Sk.", district:"Karabağlar", city: "İzmir", products:[{id:2}], profileImg:"https://media-exp1.licdn.com/dms/image/C5603AQGoynHIFGkwbw/profile-displayphoto-shrink_200_200/0/1647507719335?e=1654128000&v=beta&t=Fs0gSVDjMe580iK3f0LUkpCnZUXgMpqdJvlUTDWBsEA" }, {id:2, name: "Göktay", surname: "Incekara", email: "goktay@gmail.com", phone:"0152322722", address:"11 Sk.", district:"Konak", city: "İzmir", products:[{id:1}], profileImg:"https://yt3.ggpht.com/ytc/AKedOLRmlQNJ5CK19qzQ4JUbG_0NkcFc32hWSJcekQMy=s900-c-k-c0x00ffffff-no-rj" }]
+  export const users=[
+    {id:1, name: "İlayda", surname: "Özel", email: "ilayda@gmail.com", phone:"015237722992", address:"123 Sk.", district:"Karabağlar", city: "İzmir", products:[{id:2}], profileImg:"https://media-exp1.licdn.com/dms/image/C5603AQGoynHIFGkwbw/profile-displayphoto-shrink_200_200/0/1647507719335?e=1654128000&v=beta&t=Fs0gSVDjMe580iK3f0LUkpCnZUXgMpqdJvlUTDWBsEA" },
+    {id:2, name: "Göktay", surname: "Incekara", email: "goktay@gmail.com", phone:"0152322722", address:"11 Sk.", district:"Konak", city: "İzmir", products:[{id:1}], profileImg:"https://yt3.ggpht.com/ytc/AKedOLRmlQNJ5CK19qzQ4JUbG_0NkcFc32hWSJcekQMy=s900-c-k-c0x00ffffff-no-rj" }]
