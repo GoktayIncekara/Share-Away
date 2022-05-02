@@ -10,6 +10,7 @@ import UserShortInfo from "./UserShortInfo";
 import {users} from "../data"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { red } from "@mui/material/colors";
 
 
 
@@ -32,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
             width: "160px"
         }
 
-    }  
+    },
+    icon: {    
+        marginRight: '10px',  
+        color: "#555555", 
+      },  
 }));
 
 const Wrapper = styled.div`
@@ -71,6 +76,7 @@ const AdInfo =styled.div`
 
 const Title = styled.h1`
     color: #35858B;
+    margin-bottom: 10px;
 `
 
 const Location = styled.p`
@@ -81,6 +87,7 @@ const Location = styled.p`
 const UploadDate = styled.p`
     display: inline-block;
     color: gray;
+    margin: 0 0 0 2vw;
 `
 
 const Desc = styled.p`
@@ -89,8 +96,6 @@ const Desc = styled.p`
 const ShipInfo = styled.p`
     color: gray;
     display: flex;
-
-
 `
 const UserContainer = styled.div ``
 
@@ -110,10 +115,10 @@ const ProductDetail = () =>{
         <InfoContainer>
             <Title>{currentItem.name}</Title>
             <AdInfo>
-            <Location> {<LocationOnIcon/>}  {currentUser.district}, {currentUser.city}</Location>
+            <Location> {<LocationOnIcon  className={classes.icon} />}  {currentUser.district}, {currentUser.city}</Location>
             <UploadDate> {currentItem.uploadDate} </UploadDate>
             </AdInfo>
-            <ShipInfo> {<LocalShippingIcon />} Shipping Options:  {currentItem.shipping.toString()}
+            <ShipInfo> {<LocalShippingIcon className={classes.icon} />} Shipping Options:  {currentItem.shipping.toString()}
             </ShipInfo>
             <Desc>{currentItem.desc}</Desc>
             <UserContainer>

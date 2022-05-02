@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import {mobile} from "../responsive"
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     //to arrange the placement of navbar contents
@@ -81,7 +82,9 @@ const Navbar = () => {
       <AppBar>
           <Toolbar className= {classes.toolbar}>
               <Left>
+              <Link to = {`/`}>  
                   <LogoImage src={logoImage} ></LogoImage>
+                  </Link>
                   <Typography variant="h6" className={classes.logoLg}>
                       Share Away
                   </Typography>
