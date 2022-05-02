@@ -45,7 +45,7 @@ export const sliderItems = [
     },
     {
       id: 5,
-      img: "http://server2585.servers-servers.com/~construc/wp-content/uploads/2021/01/hero_home-5.jpeg",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpnQm-BkFz_rT0kyGEfRfdLkxcJULZvMCPQg&usqp=CAU",
       title: "Home",
     },
     {

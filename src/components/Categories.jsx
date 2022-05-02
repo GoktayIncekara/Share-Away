@@ -4,6 +4,7 @@ import CategoryItem from "./CategoryItem"
 import {mobile} from "../responsive"
 import React from 'react';
 
+
 const Container = styled.div`
   
 `
@@ -30,7 +31,7 @@ const Categories = () => {
         <Title> Categories </Title>
         <CategoriesContainer>
             {categories.map(item => (
-                <CategoryItem item={item} key={item.id}/>
+                    <CategoryItem item={item} key={item.id}/>
             ))}
         </CategoriesContainer>
         
