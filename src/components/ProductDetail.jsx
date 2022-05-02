@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
-        width: "42vw",
+        width: "100%",
 
         '&:hover': {
             backgroundColor: "#072227",
@@ -92,7 +92,7 @@ const ShipInfo = styled.p`
 
 
 `
-const blankSpace = "   "
+const UserContainer = styled.div ``
 
 
 const ProductDetail = () =>{
@@ -111,20 +111,21 @@ const ProductDetail = () =>{
             <Title>{currentItem.name}</Title>
             <AdInfo>
             <Location> {<LocationOnIcon/>}  {currentUser.district}, {currentUser.city}</Location>
-            <br/>
             <UploadDate> {currentItem.uploadDate} </UploadDate>
             </AdInfo>
-            <ShipInfo> {<LocalShippingIcon />} {blankSpace} Shipping Options:  {currentItem.shipping.toString()}
+            <ShipInfo> {<LocalShippingIcon />} Shipping Options:  {currentItem.shipping.toString()}
             </ShipInfo>
             <Desc>{currentItem.desc}</Desc>
-
-            <UserShortInfo userId = {currentItem.userId} />
-            <Button
-            variant="contained"
-            size="large"
-            className={classes.button}
-            endIcon={<MailOutlineIcon />}
-            >Send Message</Button>
+            <UserContainer>
+                <UserShortInfo userId = {currentItem.userId} />
+                <Button
+                variant="contained"
+                size="large"
+                className={classes.button}
+                endIcon={<MailOutlineIcon />}
+                >Send Message</Button>
+            </UserContainer>
+            
         </InfoContainer>
         </Wrapper>
     )
