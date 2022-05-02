@@ -7,10 +7,11 @@ import {mobile} from "../responsive"
 import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
+    //to arrange the placement of navbar contents
     toolbar: {
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: "#4fbdba"
+        backgroundColor: "#35858B"
     },
     button: {
         backgroundColor: "#FFFFFF",
@@ -18,14 +19,13 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
-        color:"#ff9f1c",
-        
 
         '&:hover': {
             backgroundColor: "#072227",
             border: '2px solid #4FBDBA',
             color:"white",
         },
+        /*if the screen is smaller than small screen size, then*/
         [theme.breakpoints.down("sm")]: {
             height: "30px",
             width: "160px",
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logoLg: {
         display: "none",
+        /*if the screen is bigger than small screen size, then*/
         [theme.breakpoints.up("sm")]: {
             display: "block",
         },
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     logoSm: {
         fontSize: "15px",
         display: "block",
+        //if the screen is bigger than small screen size, then
         [theme.breakpoints.up("sm")]: {
             display: "none",
         },

@@ -1,6 +1,7 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import styled from "styled-components"
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const Info = styled.div`
     opacity: 0;
@@ -63,15 +64,17 @@ const Icon = styled.div`
 `
 const Product = ({item}) => {
   return (
-    <Container>
-        <Circle />
-        <Image src={item.img} />
-        <Info>
-            <Icon>
-                <VisibilityIcon />
-            </Icon>
-        </Info>
-    </Container>
+    <Link to = {`/product/${item.id}`}>  
+        <Container>
+            <Circle />
+            <Image src={item.img} />
+            <Info>
+                <Icon>
+                    <VisibilityIcon />
+                </Icon>
+            </Info>
+        </Container>
+    </Link>    
   )
 }
 
