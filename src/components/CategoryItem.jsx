@@ -24,7 +24,7 @@ const CategoryItem = ({item}) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
-      <Link to={`/category/${item.title}`}>
+      <Link style={{textDecoration: 'none', textAlign: 'center'}} to={`/category/${item.title}`}>
         <CardActionArea>
           <CardMedia 
           component="img"

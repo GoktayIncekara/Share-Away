@@ -3,7 +3,7 @@ import logoImage from "../pictures/s.png"
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import {mobile} from "../responsive"
+import { mobile } from "../responsive"
 import React from 'react';
 import { Link } from "react-router-dom"
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: "#072227",
             border: '2px solid #4FBDBA',
-            color:"white",
+            color: "white",
         },
         /*if the screen is smaller than small screen size, then*/
         [theme.breakpoints.down("sm")]: {
@@ -49,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
             display: "none",
         },
     },
-    
+
 }));
 
-const Left= styled.div`
+const Left = styled.div`
     flex:1;
     display: flex;
     align-items: center;
@@ -69,7 +69,7 @@ const Right = styled.div`
     align-items: center;
     margin-right: 30px;
     justify-content: flex-end;
-    ${mobile({flexDirection:"column"})};
+    ${mobile({ flexDirection: "column" })};
 `
 const MenuItem = styled.div`
     margin-left: 25px;
@@ -79,45 +79,50 @@ const MenuItem = styled.div`
 const Navbar = () => {
     const classes = useStyles();
     return (
-      <AppBar>
-          <Toolbar className= {classes.toolbar}>
-              <Left>
-              <Link to = {`/`}>  
-                  <LogoImage src={logoImage} ></LogoImage>
-                  </Link>
-                  <Typography variant="h6" className={classes.logoLg}>
-                      Share Away
-                  </Typography>
-                  <Typography variant="h6" className={classes.logoSm}>
-                      ShareAway
-                  </Typography>
-              </Left>
-              <Right>
-                  <MenuItem>
-                      <Button
-                          variant="contained"
-                          size="large"
-                          className={classes.button}
-                          endIcon={<AddIcon/>}
-                      >
-                      Add Item
-                      </Button>
-                  </MenuItem>
-                  <MenuItem>
-                      <Button
-                          variant="contained"
-                          size="large"
-                          className={classes.button}
-                          endIcon={<PersonIcon/>}
-                      >
-                      My Profile
-                      </Button>
-                  </MenuItem>
-              </Right>
-          </Toolbar>
-      </AppBar>
-      
+        <AppBar >
+            <Toolbar className={classes.toolbar} style={{
+                textDecoration: 'none'
+            }}>
+                <Left >
+                    <Link to={`/`}>
+                        <LogoImage src={logoImage} ></LogoImage>
+                    </Link>
+                    <Link style={{
+                        textDecoration: 'none', whiteSpace: 'nowrap', color: 'white'
+                    }} to={'/'}>
+                        <Typography variant="h6" className={classes.logoLg}>
+                            Share Away
+                        </Typography>
+                    </Link>
+                </Left>
+                <Right>
+                    <MenuItem>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            className={classes.button}
+                            endIcon={<AddIcon />}
+                        >
+                            Add Item
+                        </Button>
+                    </MenuItem>
+                    <Link style={{ textDecoration: 'none' }} to={`/Profile`}>
+                        <MenuItem>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                className={classes.button}
+                                endIcon={<PersonIcon />}
+                            >
+                                My Profile
+                            </Button>
+                        </MenuItem>
+                    </Link>
+                </Right>
+            </Toolbar>
+        </AppBar>
+
     )
-  }
+}
 
 export default Navbar;

@@ -10,7 +10,6 @@ import UserShortInfo from "./UserShortInfo";
 import {users} from "../data"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import { red } from "@mui/material/colors";
 
 
 
