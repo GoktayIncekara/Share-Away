@@ -2,8 +2,10 @@ import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -26,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
+const PopupButton = styled.button`
+    font-size: "10px",
+    backgroundColor: "#FFF",
+`
 
 const Container = styled.div`
     width: 100vw;
@@ -61,7 +67,7 @@ const ButtonWrapper = styled.div`
 `
 
 const Brand = styled.h1`
-    font-size: 900;
+    font-size: 2vw;
     font-weight: 700;
     color: #4FBDBA;
 `
@@ -72,10 +78,12 @@ const Wrapper = styled.div`
     background-color: white;
     ${mobile({ width: "75%" })};
 `
-const Title = styled.h1`
+const Title = styled.div`
     font-size: 24px;
-    font-weight: 300;
-    align-items: "center";
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 const Form = styled.form`
     display: flex;
@@ -91,6 +99,13 @@ const Agreement = styled.span`
     font-size: 12px;
     margin: 20px 0;
 `
+const HaveAccount = styled.span`
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    font-weight: 600;
+    display: "flex";
+    justify-content: "center;
+`
 
 const Register = () => {
 
@@ -102,15 +117,15 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUser = { username, name, surname, email, password, address };
         console.log(newUser);
 
-          axios.post('http://localhost:5000/users/add', newUser)
-             .then(res => console.log(res.data)); 
+        axios.post('http://localhost:5000/users/add', newUser)
+            .then(res => console.log(res.data));
 
         setName('');
         setUsername('');
@@ -120,63 +135,57 @@ const Register = () => {
         setAddress('');
         setConfirmPassword('');
 
-
-       /*  fetch('http://localhost:5000/users/add', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({
-                username: newUser.username,
-                name: newUser.name,
-                surname: newUser.surname,
-                email: newUser.email,
-                password: newUser.password,
-                address: newUser.password
-            }),
-        }).then((response) => response.json(),
-        )
-            .then((result) => {
-                console.log("res", result);
-            }).then((error) => {
-                setError(error);
-                console.log("err", error);
-            }) */
-
-
+    }
+    const resetForm = () => {
+        setName('');
+        setUsername('');
+        setSurname('');
+        setEmail('');
+        setPassword('');
+        setAddress('');
+        setConfirmPassword('');
     }
 
+
+
     return (
-        <Container>
-            <BrandWrapper>
-                <Brand>SHARE AWAY</Brand>
-            </BrandWrapper>
-            <Wrapper>
-                <Title>CREATE AN ACCOUNT</Title>
-                <Form onSubmit={handleSubmit}>
+        <main>
+            <Container>
+                <BrandWrapper>
+                    <Brand>SHARE AWAY</Brand>
+                </BrandWrapper>
+                <Wrapper>
 
-                    <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                    <Title> CREATE AN ACCOUNT</Title>
 
-                    <Input placeholder="Last Name" type="text" required value={surname} onChange={(e) => setSurname(e.target.value)} />
+                    <Form onSubmit={handleSubmit}>
 
-                    <Input placeholder="Username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-                    <Input placeholder="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <Input placeholder="Last Name" type="text" required value={surname} onChange={(e) => setSurname(e.target.value)} />
 
-                    <Input placeholder="Password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <Input placeholder="Username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)} />
 
-                    <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <Input placeholder="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                    <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
-                    </Agreement>
-                    <ButtonWrapper>
-                        <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>
-                        <Button type="reset" className={classes.button}>Reset</Button>
-                    </ButtonWrapper>
+                        <Input placeholder="Password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                </Form>
-            </Wrapper>
-        </Container>
+                        <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
+                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a target="_blank" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
+                        </Agreement>
+                        <ButtonWrapper>
+                            <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>
+                            <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
+                        </ButtonWrapper>
+                        <HaveAccount>
+                            Already have an account? <Link to={`/login`}>Log in</Link>
+                        </HaveAccount>
+
+                    </Form>
+                </Wrapper>
+            </Container>
+        </main>
     )
 }
 export default Register

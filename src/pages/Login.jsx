@@ -1,7 +1,8 @@
 import styled from "styled-components"
-import {mobile} from "../responsive"
-import { Button, makeStyles} from '@material-ui/core';
-import React from 'react';
+import { mobile } from "../responsive"
+import { Button, makeStyles } from '@material-ui/core';
+import React, { useRef } from 'react';
+import { userRef, useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -10,21 +11,21 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
-        marginTop:"10px",
-        marginBottom:"10px",
+        marginTop: "10px",
+        marginBottom: "10px",
 
         '&:hover': {
             backgroundColor: "#072227",
             border: '2px solid #4FBDBA',
-            color:"white",
+            color: "white",
         },
         [theme.breakpoints.down("sm")]: {
             height: "40px",
             width: "auto"
         }
 
-    }  
- 
+    }
+
 }));
 
 const Container = styled.div`
@@ -63,7 +64,7 @@ const Wrapper = styled.div`
     padding: 20px;
     margin-top: 30px;
     background-color: white;
-    ${mobile({width: "75%"})};
+    ${mobile({ width: "75%" })};
 `
 const Title = styled.h1`
     font-size: 24px;
@@ -87,24 +88,41 @@ const Link = styled.a`
   color: teal;
 `
 const Login = () => {
-  const classes = useStyles();
-  return (
-    <Container>
-      <BrandWrapper>
-        <Brand>SHARE AWAY</Brand>
-      </BrandWrapper>
-      <Wrapper>
-            <Title>SIGN IN</Title>
-            <Form>
-                <Input placeholder="Username" />
-                <Input placeholder="Password" />
-                <Button className={classes.button}>LOGIN</Button>
-                <Link>DON'T YOU REMEMBER THE PASSWORD?</Link>
-                <Link>CREATE A NEW ACCOUNT</Link>
-            </Form>
-        </Wrapper>
-    </Container>
-  )
+    const classes = useStyles();
+
+    const userRef = userRef();
+    const errRef = useRef();
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [username, password])
+
+    return (
+        <Container>
+            <BrandWrapper>
+                <Brand>SHARE AWAY</Brand>
+            </BrandWrapper>
+            <Wrapper>
+                <Title>SIGN IN</Title>
+                <Form>
+                    <Input placeholder="Username" />
+                    <Input placeholder="Password" />
+                    <Button className={classes.button}>LOGIN</Button>
+                    <Link>DON'T YOU REMEMBER THE PASSWORD?</Link>
+                    <Link>CREATE A NEW ACCOUNT</Link>
+                </Form>
+            </Wrapper>
+        </Container>
+    )
 }
 
 export default Login
