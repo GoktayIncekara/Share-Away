@@ -1,10 +1,10 @@
+import React from 'react';
+import { useState } from "react";
 import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
-import React from 'react';
-import { useState } from "react";
-import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-const PopupButton = styled.button`
+
+/*const PopupButton = styled.button`
     font-size: "10px",
     backgroundColor: "#FFF",
 `
-
+*/
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -110,6 +111,8 @@ const HaveAccount = styled.span`
 const Register = () => {
 
     const classes = useStyles();
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -119,23 +122,50 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newUser = { username, name, surname, email, password, address };
-        console.log(newUser);
+    async function handleRegister(e) {
 
-        axios.post('http://localhost:5000/users/add', newUser)
-            .then(res => console.log(res.data));
+        e.preventDefault()
 
-        setName('');
-        setUsername('');
-        setSurname('');
-        setEmail('');
-        setPassword('');
-        setAddress('');
-        setConfirmPassword('');
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!")
+            setPassword('');
+            setConfirmPassword('');
 
+        }
+        else {
+            const response = await fetch('http://localhost:5000/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    name,
+                    surname,
+                    email,
+                    address,
+                    password,
+                }),
+            })
+
+            const data = await response.json()
+
+            if (data.status === 'ok') {
+                setName('');
+                setUsername('');
+                setSurname('');
+                setEmail('');
+                setPassword('');
+                setAddress('');
+                setConfirmPassword('');
+                navigate('/login');
+            }
+            if (data.status === 'error') {
+                alert('Email or username is already used! Please try again!')
+            }
+        }
     }
+
     const resetForm = () => {
         setName('');
         setUsername('');
@@ -158,7 +188,7 @@ const Register = () => {
 
                     <Title> CREATE AN ACCOUNT</Title>
 
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleRegister}>
 
                         <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
@@ -172,7 +202,7 @@ const Register = () => {
 
                         <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a target="_blank" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
+                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
                         </Agreement>
                         <ButtonWrapper>
                             <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>

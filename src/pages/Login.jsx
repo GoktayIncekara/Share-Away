@@ -1,8 +1,9 @@
+import React from 'react';
+import { useState } from 'react';
 import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
-import React, { useRef } from 'react';
-import { userRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -55,7 +56,7 @@ const BrandWrapper = styled.div`
     justify-content: center;
 `
 const Brand = styled.h1`
-    font-size: 900;
+font-size: 2vw;
     font-weight: 700;
     color: #4FBDBA;
 `
@@ -66,9 +67,12 @@ const Wrapper = styled.div`
     background-color: white;
     ${mobile({ width: "75%" })};
 `
-const Title = styled.h1`
+const Title = styled.div`
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 const Form = styled.form`
     display: flex;
@@ -80,6 +84,14 @@ const Input = styled.input`
     margin: 10px 0;
     padding: 10px;
 `
+const HaveAccount = styled.span`
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    font-weight: 600;
+    display: "flex";
+    justify-content: "center;
+`
+/*
 const Link = styled.a`
   margin: 5px 0;
   font-size: 12px;
@@ -87,41 +99,69 @@ const Link = styled.a`
   cursor: pointer;
   color: teal;
 `
-const Login = () => {
-    const classes = useStyles();
+*/
 
-    const userRef = userRef();
-    const errRef = useRef();
+function Login() {
+
+    const classes = useStyles();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+    async function loginUser(event) {
+        event.preventDefault()
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [username, password])
+        const response = await fetch('http://localhost:5000/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        })
+
+        const data = await response.json()
+
+        if (data.status === 'errorUserNotFound') {
+            alert('Username is not registered! Please try again!')
+        }
+        else {
+            if (data.status === 'ok') {
+                localStorage.setItem('token', data.user)
+                // alert('Login successful')
+                window.location.href = '/homepage'
+            } if (data.status === 'errorPasswordDoNotMatch') {
+                alert('Username and/or Password do not match! Please try again!')
+
+            }
+        }
+
+    }
 
     return (
-        <Container>
-            <BrandWrapper>
-                <Brand>SHARE AWAY</Brand>
-            </BrandWrapper>
-            <Wrapper>
-                <Title>SIGN IN</Title>
-                <Form>
-                    <Input placeholder="Username" />
-                    <Input placeholder="Password" />
-                    <Button className={classes.button}>LOGIN</Button>
-                    <Link>DON'T YOU REMEMBER THE PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
-                </Form>
-            </Wrapper>
-        </Container>
+        <main>
+            <Container>
+                <BrandWrapper>
+                    <Brand>SHARE AWAY</Brand>
+                </BrandWrapper>
+                <Wrapper>
+                    <Title>SIGN IN</Title>
+                    <Form onSubmit={loginUser}>
+                        <Input placeholder="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+                        <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+                        <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
+
+                        <HaveAccount>
+                            <Link to={`/`} > Create a New Account?</Link>
+                        </HaveAccount>
+                    </Form>
+                </Wrapper>
+            </Container>
+        </main>
     )
 }
 

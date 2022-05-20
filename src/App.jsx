@@ -13,12 +13,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-              <Route exact path='/homepage' element={< Home />}></Route>
-              <Route exact path='/login' element={< Login />}></Route>
-              <Route exact path='/' element={< Register />}></Route>
-              <Route exact path='/product/:id' element={< Product />}></Route>
-              <Route exact path='/category/:title' element={< ProductList />}></Route>
-              <Route exact path='/profile' element={< Profile />}></Route>
+              <Route  path='/homepage' exact element={< Home />}></Route>
+              <Route  path='/login' exact element={< Login />}></Route>
+              <Route  path='/' exact element={< Register />}></Route>
+              <Route  path='/product/:id' exact element={< Product />}></Route>
+              <Route  path='/category/:title' exact element={< ProductList />}></Route>
+              <Route  path='/profile' exact element={< Profile />}></Route>
       </Routes>
     </Router>
   )
