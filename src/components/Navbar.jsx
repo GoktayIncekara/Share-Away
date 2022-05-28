@@ -57,7 +57,6 @@ const Left = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    cursor: pointer;
 `
 const LogoImage = styled.img`
     max-width: 50px;

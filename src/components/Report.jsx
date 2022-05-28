@@ -30,8 +30,7 @@ const InputContainer = styled.div`
     background-color: white;
     display: flex;
     justify-content: space-between;
-    border: 1px solid lightgray;
-    border-right: none;
+    border: 5px solid lightgray;
     ${mobile({width: "80%", marginTop: "30px"})};
 `
 const Input = styled.a`
@@ -43,7 +42,7 @@ const Input = styled.a`
     color: #35858B;
     font-size: 22px;
     font-weight: 400;
-    padding-top: 6px;
+    padding-top: 3px;
     ${mobile({fontSize: "18px", marginTop: "3px"})};
 `
 const Button = styled.button`
@@ -61,9 +60,6 @@ const Report = () => {
               <Input href="mailto:shareaway@info.com">
               What is the problem?
               </Input>
-              <Button>
-                <Send/>
-              </Button>
           </InputContainer>
       </Container>
   )

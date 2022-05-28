@@ -36,7 +36,7 @@ const Container = styled.div`
         rgba(255,255,255,0.4),
         rgba(255,255,255,0.4)
     ),
-    url("https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2020/04/18074111/T2020-302-20-DS-At-Home-with-Studios-Website_1280x550_HOME-1024x616.jpg") 
+    url("https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg") 
     center no-repeat;
     background-size: cover;
     display: flex;
@@ -49,7 +49,7 @@ const BrandWrapper = styled.div`
     border: 2px solid black;
     border-radius: 10px;
     height: 7vh;
-    width: 17vw;
+    width: 25vw;
     background-color: #072227;
     display: flex;
     align-items: center;
@@ -101,12 +101,22 @@ const Link = styled.a`
 `
 */
 
+const Error = styled.span`
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    font-weight: 600;
+    display: "flex";
+    color: red;
+    justify-content: "center;
+`
+
 function Login() {
 
     const classes = useStyles();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     async function loginUser(event) {
         event.preventDefault()
@@ -125,7 +135,7 @@ function Login() {
         const data = await response.json()
 
         if (data.status === 'errorUserNotFound') {
-            alert('Username is not registered! Please try again!')
+            setErrorMessage("Username is not registered! Please try again!")
         }
         else {
             if (data.status === 'ok') {
@@ -133,8 +143,7 @@ function Login() {
                 // alert('Login successful')
                 window.location.href = '/homepage'
             } if (data.status === 'errorPasswordDoNotMatch') {
-                alert('Username and/or Password do not match! Please try again!')
-
+                setErrorMessage("Username and/or Password do not match! Please try again!")
             }
         }
 
@@ -153,10 +162,12 @@ function Login() {
 
                         <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                        <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
+                        <Error> {errorMessage} </Error>
 
+                        <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
+        
                         <HaveAccount>
-                            <Link to={`/`} > Create a New Account?</Link>
+                            <Link to={`/`} style={{ textDecoration: 'none' }} > Create a New Account?</Link>
                         </HaveAccount>
                     </Form>
                 </Wrapper>

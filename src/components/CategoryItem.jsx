@@ -32,7 +32,7 @@ const CategoryItem = ({item}) => {
           className={classes.image}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" color="common.black" component="div">
               {item.title}
             </Typography>
           </CardContent>

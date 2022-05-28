@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme) => ({
 `
 */
 const Container = styled.div`
-    width: 100vw;
+    width: 105vw;
     height: 100vh;
     background: linear-gradient(
         rgba(255,255,255,0.2),
         rgba(255,255,255,0.2)
     ),
-    url("https://media.istockphoto.com/photos/girl-with-megaphone-jumping-and-shouting-picture-id1166716628?k=20&m=1166716628&s=170667a&w=0&h=qcEGmTnQvaC9SZwieMykABjpCbHdMQwITMeEV6BL_DI=") 
+    url("https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg") 
     center no-repeat;
     background-size: cover;
     display: flex;
@@ -54,7 +54,7 @@ const BrandWrapper = styled.div`
     border: 2px solid black;
     border-radius: 10px;
     height: 7vh;
-    width: 17vw;
+    width: 42vw;
     background-color: #072227;
     display: flex;
     align-items: center;
@@ -107,6 +107,14 @@ const HaveAccount = styled.span`
     display: "flex";
     justify-content: "center;
 `
+const Error = styled.span`
+    font-size: 15px;
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+    display: "flex";
+    color: red;
+    justify-content: "center;
+`
 
 const Register = () => {
 
@@ -120,6 +128,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     async function handleRegister(e) {
@@ -161,7 +170,7 @@ const Register = () => {
                 navigate('/login');
             }
             if (data.status === 'error') {
-                alert('Email or username is already used! Please try again!')
+                setErrorMessage("Email or username is already used! Please try again!")
             }
         }
     }
@@ -202,14 +211,15 @@ const Register = () => {
 
                         <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
+                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a  style={{textDecoration: 'none'}} target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
                         </Agreement>
+                        <Error> {errorMessage} </Error>
                         <ButtonWrapper>
                             <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>
                             <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
                         </ButtonWrapper>
                         <HaveAccount>
-                            Already have an account? <Link to={`/login`}>Log in</Link>
+                            Already have an account? <Link to={`/login`} style={{ textDecoration: 'none' }}>Log in</Link>
                         </HaveAccount>
 
                     </Form>
