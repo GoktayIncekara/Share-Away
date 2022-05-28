@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { mobile } from "../responsive"
 import React from 'react';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     //to arrange the placement of navbar contents
@@ -78,24 +78,39 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
+    const LogOut = () => {
+        localStorage.removeItem('token')
+        navigate('/login', { replace: true })
+    }
     return (
         <AppBar >
             <Toolbar className={classes.toolbar} style={{
                 textDecoration: 'none'
             }}>
                 <Left >
-                    <Link to={`/`}>
+                    <Link to={`/homepage`}>
                         <LogoImage src={logoImage} ></LogoImage>
                     </Link>
                     <Link style={{
                         textDecoration: 'none', whiteSpace: 'nowrap', color: 'white'
-                    }} to={'/'}>
+                    }} to={'/homepage'}>
                         <Typography variant="h6" className={classes.logoLg}>
                             Share Away
                         </Typography>
                     </Link>
                 </Left>
                 <Right>
+                    <MenuItem>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            className={classes.button}
+                            onClick={() => LogOut()}
+                        >
+                            Sign Out
+                        </Button>
+                    </MenuItem>
                     <MenuItem>
                         <Button
                             variant="contained"
