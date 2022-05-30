@@ -19,7 +19,7 @@ const App = () => {
               <Route  path='/product/:id' exact element={< Product />}></Route>
               <Route  path='/category/:title' exact element={< ProductList />}></Route>
               <Route  path='/profile' exact element={< Profile />}></Route>
-              <Route  path='/crashtest-d5c3cfd6.html' exact element={<a href= "../public/crashtest-d5c3cfd6.html" />}></Route>
+            
               
       </Routes>
     </Router>
