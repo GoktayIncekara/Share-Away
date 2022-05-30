@@ -1,20 +1,26 @@
 import styled from 'styled-components'
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import PersonalAdDashboard from './PersonalAdDashboard';
+
 const Container = styled.div`
-    position: fixed;
-    top: 60px;
+    margin-top: 60px;
     width: 100%;
-    height: 100vh;
     background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
+   
 
 `
-const InfoContainer = styled.div`
-    margin: 20px 0 0 0;
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 90%;
+    margin: 10px;
+`
+const InfoContainer = styled.div`
+    margin: 10px 0 0 0;
     display:flex;
     flex-direction: column;
 
@@ -23,11 +29,11 @@ const ProfileContainer = styled.div`
     display: flex;
     flex-direction: row;
     background-color: #fff;  
-    margin: 20px 0 0 0;
-    
+    padding: 30px;
+    margin-top: 20px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
 `
-
-
 
 const PhotoContainer = styled.div`
     padding: 30px 40px;
@@ -46,7 +52,7 @@ const Avatar = styled.img`
     width: 30vh;
     height: 30vh;
     border-radius: 50%;
-    background-color: red;
+    background-color: gray;
     margin: auto;
     z-index: 2;
 `
@@ -76,9 +82,9 @@ const ConstInfo=styled.div`
     
 `
 const ConstTitle= styled.h2`
-    color: #333;
-    text-decoration: underline;
-    text-decoration-color: #35858B;
+    color: #35858B;;
+    /*text-decoration: underline;
+    text-decoration-color: #35858B;*/
     margin-right: 10px;
 `
 const ConstContent= styled.h3`
@@ -92,8 +98,7 @@ const MainTitle=styled.h1`
 `
 
 const PasswordButton = styled.button`
-    background-color: #4FBDBA;
-    border: 2px solid #AEFEFF;
+
     padding-left: 45px;
     border-radius: 10px;
     font-weight: 700;
@@ -103,13 +108,18 @@ const PasswordButton = styled.button`
     display:flex;
     align-items: center;
     justify-content: center;
+    margin: 15px;
+    padding: 5px;
+    background-color: #072227;
+    border: 2px solid #4FBDBA;
+    color: #fff;
     &:hover {
-        background-color: #072227;
-        border: 2px solid #4FBDBA;
-        color: #fff;
+        background-color: #4FBDBA;
+        border: 2px solid #AEFEFF;
+        
   }
 `
- 
+
 
 
 const UserProfile = () => {
@@ -117,6 +127,7 @@ const UserProfile = () => {
     console.log(user);
     return (
         <Container>
+        <Wrapper>
             <InfoContainer>
                     <ProfileContainer>
 
@@ -133,7 +144,9 @@ const UserProfile = () => {
                     </ProfileContainer>
                     
             </InfoContainer>
+            <PersonalAdDashboard/>
 
+        </Wrapper>
         </Container>
 
     )
