@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Profile from './pages/Profile';
-
+import AddProduct from './pages/AddProduct';
 
 const App = () => {
   return (
@@ -19,8 +19,7 @@ const App = () => {
               <Route  path='/product/:id' exact element={< Product />}></Route>
               <Route  path='/category/:title' exact element={< ProductList />}></Route>
               <Route  path='/profile' exact element={< Profile />}></Route>
-            
-              
+              <Route  path='/addProduct' exact element={< AddProduct />}></Route>
       </Routes>
     </Router>
   )

@@ -110,6 +110,7 @@ const Navbar = () => {
                             Sign Out
                         </Button>
                     </MenuItem>
+                    <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
                     <MenuItem>
                         <Button
                             variant="contained"
@@ -120,6 +121,7 @@ const Navbar = () => {
                             Add Item
                         </Button>
                     </MenuItem>
+                    </Link>
                     <Link style={{ textDecoration: 'none' }} to={`/Profile`}>
                         <MenuItem>
                             <Button
