@@ -3,6 +3,7 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import jwt from 'jsonwebtoken';
 import PersonalAdDashboard from './PersonalAdDashboard';
+import PhotoUpload from './PhotoUpload';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -131,9 +132,7 @@ const UserProfile = () => {
             <InfoContainer>
                     <ProfileContainer>
 
-                    <PhotoContainer><Avatar src={"https://media-exp1.licdn.com/dms/image/C5603AQGoynHIFGkwbw/profile-displayphoto-shrink_200_200/0/1647507719335?e=1654128000&v=beta&t=Fs0gSVDjMe580iK3f0LUkpCnZUXgMpqdJvlUTDWBsEA"}/>
-                    <div><PhotoSettingText>Change Profile Picture <EditIcon style={{fontSize:   "1.2rem", paddingLeft: "5px"}} /></PhotoSettingText></div>
-                    </PhotoContainer>
+                    <PhotoUpload/>
 
                     <ConstInfoContainer>
                     <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
