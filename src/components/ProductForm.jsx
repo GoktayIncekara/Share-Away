@@ -167,6 +167,7 @@ const ProductForm = () => {
                     <Form onSubmit={handleRegister}>
                    
                         <ProductPhotoUpload />
+                        
                         <Input placeholder="Title" required type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
 
                         <Input placeholder="Description" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} />

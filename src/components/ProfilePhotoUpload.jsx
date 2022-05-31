@@ -64,7 +64,7 @@ const Input = styled.input.attrs({
     const [clicked, setClicked] = useState(false);
     const [profileImg, setProfileImg] = useState('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
     const user = jwt.decode(localStorage.getItem('token'));
-    /*localStorage.setItem('profilePic', user.profilePic)*/
+
   const imageHandler = (e) => {
     setClicked(true);
     const reader = new FileReader();
