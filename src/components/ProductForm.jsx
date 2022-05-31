@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
-import {cities} from "../data"
+import {turkeyData} from "../cityDistrict"
 import ProductPhotoUpload from "./ProductPhotoUpload";
 
 
@@ -68,17 +68,10 @@ const Title = styled.div`
 `
 const Form = styled.form`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     
 `
-const Input = styled.input`
-    flex: 1;
-    min-width: 40%;
-    margin: 20px 10px 0 0;
-    padding: 10px;
-    border: 2px solid  #35858B;
-    border-radius: 30px;
-`
+
 
 const Error = styled.span`
     font-size: 15px;
@@ -88,7 +81,42 @@ const Error = styled.span`
     color: red;
     justify-content: "center";
 `
+const InputTitle =styled.label`
+    font-size: 20px;
+    font-weight: 500;
+    color: #35858B;
+`
+const InputBox = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0 10px 0;
 
+`
+const Input = styled.input`
+    flex: 1;
+    width: 85%;
+    padding: 5px;
+    padding: 10px;
+    border: 2px solid  #35858B;
+    border-radius: 10px;
+`
+const Select = styled.select`
+    flex: 1;
+    min-width: 85%;
+    margin: 5px 0;
+    padding: 10px;
+    border: 2px solid  #35858B;
+    border-radius: 10px;
+`
+const TextArea = styled.textarea`
+    flex: 1;
+    min-width: 85%;
+    margin: 5px 0;
+    padding: 10px;
+    border: 2px solid  #35858B;
+    border-radius: 10px;
+`
 const ProductForm = () => {
 
     const classes = useStyles();
@@ -100,9 +128,10 @@ const ProductForm = () => {
     const [category, setCategory] = useState('');
     const [city, setCity] = useState('');
     const [district, setDistrict] = useState('');
+    const [districtArr, setDistrictArr] = useState([]);
     const [shipping, setShipping] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+    const CategoryArr = ["home", "beauty", "game", "kids"];
 
     async function handleRegister(e) {
 
@@ -157,7 +186,11 @@ const ProductForm = () => {
         setDistrict('');
         setShipping('');
     }
+    const changeCity =(e)=>{
+        setCity(e.target.value) ;
+        setDistrictArr( (turkeyData.find( ( selectedCity ) => selectedCity.il_adi === e.target.value)).ilceler);
 
+    }
     return (
         <main>
             <Container>
@@ -167,18 +200,57 @@ const ProductForm = () => {
                     <Form onSubmit={handleRegister}>
                    
                         <ProductPhotoUpload />
-                        
+
+                        <InputBox>
+                        <InputTitle for="dist">Title</InputTitle>
                         <Input placeholder="Title" required type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        </InputBox>
 
-                        <Input placeholder="Description" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} />
 
-                        <Input placeholder="Category" type="text" required value={category} onChange={(e) => setCategory(e.target.value)} />
+                        <InputBox>
+                        <InputTitle for="dist">Description</InputTitle>
+                        <TextArea placeholder="Description" type="textarea" required value={description} onChange={(e) => setDescription(e.target.value)} />
+                        </InputBox>
 
-                        <Input placeholder="City" type="text" required value={city} onChange={(e) => setCity(e.target.value)} />
+                             
+                        <InputBox>
+                        <InputTitle for="category">Category</InputTitle>
+                        <Select name="categories" id="category" placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}  >
+                        {CategoryArr.map((item) => (
+                             <option value={item}>{item}</option>
+                            ))}
+                        </Select>
+                        </InputBox>
 
-                        <Input placeholder="District" type="text" required value={district} onChange={(e) => setDistrict(e.target.value)} />
+                                                   
+                        <InputBox>
+                        <InputTitle for="ship">Shipping Options</InputTitle>
+                        <Select name="shipping" id="ship" placeholder='Shipping Options' value={shipping} onChange={(e) => setShipping(e.target.value)}  >
+                             <option value="cargo">By Cargo</option>
+                             <option value="pick-up">Pick up</option>
+                             <option value="both">Both Cargo and Pick-up</option>
+                        </Select>
+                        </InputBox>
 
-                        <Input placeholder="Shipping Options" type="text" required value={shipping} onChange={(e) => setShipping(e.target.value)} />
+                        <InputBox>
+                        <InputTitle for="city">City</InputTitle>
+                        <Select name="cities" id="city" placeholder='City' value={city} onChange={changeCity}  >
+                        {turkeyData.map((item) => (
+                             <option value={item.il_adi}>{item.il_adi}</option>
+                            ))}
+                        </Select>
+                        </InputBox>
+
+                        <InputBox>
+                        <InputTitle for="dist">District</InputTitle>
+                        <Select name="districts" id="dist" placeholder='District' value={district} onChange={(e) => setDistrict(e.target.value)}  >
+                            {districtArr.map((item) => (
+                                <option value={item.ilce_adi}>{item.ilce_adi}</option>
+                                ))}
+                        </Select>
+                        </InputBox>
+
+
 
                     
                         <Error> {errorMessage} </Error>
