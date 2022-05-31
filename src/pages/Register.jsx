@@ -130,12 +130,12 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    console.log("LOCALSTROGA PP register",localStorage.getItem("profilePic") )
+
 
     async function handleRegister(e) {
 
         e.preventDefault()
-        if(localStorage.getItem("profilePic") != null){
+        if(localStorage.hasOwnProperty("profilePic")){
             setProfilePic(localStorage.getItem("profilePic"))
         }
         else{
@@ -153,7 +153,7 @@ const Register = () => {
             setPassword('');
             setConfirmPassword(''); 
         }
-        else if(username.length<6){
+        else if(username.length<5){
             alert("Username should be minimum 5 characters long!")
             setPassword('');
             setConfirmPassword(''); 

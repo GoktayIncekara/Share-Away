@@ -4,6 +4,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import userPlaceHolder from '../pictures/user.png'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import jwt from 'jsonwebtoken';
 
 const Container = styled.div`
     width: 300px;
@@ -62,7 +63,8 @@ const Input = styled.input.attrs({
   const ProfilePhotoUpload = () => {
     const [clicked, setClicked] = useState(false);
     const [profileImg, setProfileImg] = useState('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
-
+    const user = jwt.decode(localStorage.getItem('token'));
+    /*localStorage.setItem('profilePic', user.profilePic)*/
   const imageHandler = (e) => {
     setClicked(true);
     const reader = new FileReader();
@@ -100,7 +102,7 @@ const Input = styled.input.attrs({
 				</UploadLabel>
 
 				<ImgHolder>
-					<Img src={localStorage.getItem("profilePic")?localStorage.getItem("profilePic"): profileImg} alt="" id="img" className="img" />
+					<Img src={localStorage.hasOwnProperty("profilePic") ? localStorage.getItem("profilePic"): localStorage.hasOwnProperty("token")? user.profilePic: profileImg} alt="" id="img" className="img" />
 				</ImgHolder>
 					<Input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
 
@@ -110,6 +112,7 @@ const Input = styled.input.attrs({
         <HighlightOffIcon sx={{ fontSize: 50 }} onClick={cancelPhoto}/>
         </UploadButtons>
         : ""}
+
 
          
 			</Container>
