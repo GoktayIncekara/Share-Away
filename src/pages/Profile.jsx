@@ -9,6 +9,8 @@ const Profile = () => {
       <div>
         <Navbar />
         <UserProfile />
+        <Report />
+        <Footer />
       </div>
     )
   }

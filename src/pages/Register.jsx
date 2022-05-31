@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
+import PhotoUpload from '../components/ProfilePhotoUpload';
 
 
 
@@ -117,7 +118,6 @@ const Error = styled.span`
 `
 
 const Register = () => {
-
     const classes = useStyles();
     const navigate = useNavigate();
 
@@ -128,18 +128,48 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+    console.log("LOCALSTROGA PP register",localStorage.getItem("profilePic") )
 
     async function handleRegister(e) {
 
         e.preventDefault()
-
+        if(localStorage.getItem("profilePic") != null){
+            setProfilePic(localStorage.getItem("profilePic"))
+        }
+        else{
+            setProfilePic("http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png")
+        }
+        
         if (password !== confirmPassword) {
             alert("Passwords do not match!")
             setPassword('');
             setConfirmPassword('');
 
+        }
+        else if(password.length<6){
+            alert("Password should be minimum 6 characters long!")
+            setPassword('');
+            setConfirmPassword(''); 
+        }
+        else if(username.length<6){
+            alert("Username should be minimum 5 characters long!")
+            setPassword('');
+            setConfirmPassword(''); 
+        }
+        else if(name.length<3){
+            alert("Name should be minimum 2 characters long!")
+            setPassword('');
+            setConfirmPassword(''); 
+        }
+        else if(surname.length<3){
+            alert("Surname should be minimum 2 characters long!")
+            setPassword('');
+            setConfirmPassword(''); 
+        }
+        else if(profilePic === null){
+            alert("There is no pp")
         }
         else {
             const response = await fetch('http://localhost:5000/user/register', {
@@ -154,6 +184,7 @@ const Register = () => {
                     email,
                     address,
                     password,
+                    profilePic,
                 }),
             })
 
@@ -167,6 +198,7 @@ const Register = () => {
                 setPassword('');
                 setAddress('');
                 setConfirmPassword('');
+                setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
                 navigate('/login');
             }
             if (data.status === 'error') {
@@ -183,8 +215,10 @@ const Register = () => {
         setPassword('');
         setAddress('');
         setConfirmPassword('');
+        setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
     }
 
+    
 
 
     return (
@@ -194,8 +228,13 @@ const Register = () => {
                     <Brand>SHARE AWAY</Brand>
                 </BrandWrapper>
                 <Wrapper>
+                
 
                     <Title> CREATE AN ACCOUNT</Title>
+                                            
+                    <PhotoUpload/>
+
+                        
 
                     <Form onSubmit={handleRegister}>
 

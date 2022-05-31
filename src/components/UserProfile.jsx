@@ -3,7 +3,7 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import jwt from 'jsonwebtoken';
 import PersonalAdDashboard from './PersonalAdDashboard';
-import PhotoUpload from './PhotoUpload';
+import PhotoUpload from './ProfilePhotoUpload';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -36,35 +36,6 @@ const ProfileContainer = styled.div`
     border-top-right-radius: 40px;
 `
 
-const PhotoContainer = styled.div`
-    padding: 30px 40px;
-    width: 50vh;
-    border: 1px solid #444;
-    margin: 20px;
-    display: flex;
-    align-itmes: center;
-    flex-direction: column;
-    justify-content: center;
-
-    
-`
-
-const Avatar = styled.img`
-    width: 30vh;
-    height: 30vh;
-    border-radius: 50%;
-    background-color: gray;
-    margin: auto;
-    z-index: 2;
-`
-const PhotoSettingText =styled.a `
-    color: #333;
-    margin-left:20px;
-    margin-top: 10px;
-    display: flex;
-    align-items: flex-end;
-    font-size: 15px;
-`
 
 const ConstInfoContainer=styled.div`
     display: flex;
@@ -92,11 +63,7 @@ const ConstContent= styled.h3`
     color: #222;
 `
 
-const MainTitle=styled.h1`
-    color: #35858B;
-    padding: 20px 15px;
 
-`
 
 const PasswordButton = styled.button`
 
@@ -130,19 +97,19 @@ const UserProfile = () => {
         <Container>
         <Wrapper>
             <InfoContainer>
-                    <ProfileContainer>
+                <ProfileContainer>
 
                     <PhotoUpload/>
-
                     <ConstInfoContainer>
-                    <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
-                    <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
-                    <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
-                    <PasswordButton>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
+                        <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
+                        <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
+                        <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
+                        <PasswordButton>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
                     </ConstInfoContainer>
-                    </ProfileContainer>
-                    
+
+                </ProfileContainer>     
             </InfoContainer>
+            
             <PersonalAdDashboard/>
 
         </Wrapper>

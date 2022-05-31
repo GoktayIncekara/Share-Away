@@ -5,21 +5,22 @@ import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
 import {cities} from "../data"
+import ProductPhotoUpload from "./ProductPhotoUpload";
 
 
 const useStyles = makeStyles((theme) => ({
     button: {
-        backgroundColor: "#4FBDBA",
-        border: '2px solid #AEFEFF',
+        backgroundColor: "#072227",
+        border: '2px solid #4FBDBA',
+        color: "white",
         borderRadius: "10px",
         fontWeight: "700",
         fontSize: "13px",
         margin: "10px 20px",
-        width: "100px",
+        width: "250px",
         '&:hover': {
-            backgroundColor: "#072227",
-            border: '2px solid #4FBDBA',
-            color: "white",
+            backgroundColor: "#4FBDBA",
+            border: '2px solid #AEFEFF',
         },
         [theme.breakpoints.down("sm")]: {
             height: "40px",
@@ -31,13 +32,20 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Container = styled.div`
-    height: 100vh;
     background-color: rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 60px;
 
+`
+const Wrapper = styled.div`
+    width: 80%;
+    padding: 20px;
+    margin: 30px 0;
+    background-color: white;
+    ${mobile({ width: "75%" })};
 `
 
 const ButtonWrapper = styled.div`
@@ -45,16 +53,11 @@ const ButtonWrapper = styled.div`
     align-items: space-evenly;
     justify-content: center;
     width: 100%;
+    margin: 20px;
 `
 
 
-const Wrapper = styled.div`
-    width: 80%;
-    padding: 20px;
-    margin-top: 30px;
-    background-color: white;
-    ${mobile({ width: "75%" })};
-`
+
 const Title = styled.div`
     font-size: 24px;
     font-weight: 600;
@@ -85,14 +88,7 @@ const Error = styled.span`
     color: red;
     justify-content: "center";
 `
-const Avatar = styled.img`
-    width: 30vh;
-    height: 30vh;
-    border-radius: 50%;
-    background-color: gray;
-    margin: auto;
-    z-index: 2;
-`
+
 const ProductForm = () => {
 
     const classes = useStyles();
@@ -169,8 +165,8 @@ const ProductForm = () => {
                     <Title> ADD PRODUCT </Title>
 
                     <Form onSubmit={handleRegister}>
-                    <Avatar src={"https://media-exp1.licdn.com/dms/image/C5603AQGoynHIFGkwbw/profile-displayphoto-shrink_200_200/0/1647507719335?e=1654128000&v=beta&t=Fs0gSVDjMe580iK3f0LUkpCnZUXgMpqdJvlUTDWBsEA"}/>
-
+                   
+                        <ProductPhotoUpload />
                         <Input placeholder="Title" required type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
 
                         <Input placeholder="Description" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} />
@@ -186,7 +182,7 @@ const ProductForm = () => {
                     
                         <Error> {errorMessage} </Error>
                         <ButtonWrapper>
-                            <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>
+                            <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Publish Product</Button>
                             <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
                         </ButtonWrapper>
 

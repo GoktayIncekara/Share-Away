@@ -118,7 +118,7 @@ const Navbar = () => {
                             className={classes.button}
                             endIcon={<AddIcon />}
                         >
-                            Add Item
+                            Add Product
                         </Button>
                     </MenuItem>
                     </Link>
