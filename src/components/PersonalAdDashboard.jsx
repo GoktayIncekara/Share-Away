@@ -61,11 +61,13 @@ const PersonalAdDashboard = () => {
                     <Product item= {item} key={item.id}/>
                 ))} 
         </AdDashboard>
-
+    
+        <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
         <AddProductConatiner>
                 <AddCircleOutlineIcon  sx={{ fontSize: 150}} />
                 <IconCaption>Add New Product</IconCaption>
         </AddProductConatiner>
+        </Link>
 
     </AdContainer>
     </Wrapper>

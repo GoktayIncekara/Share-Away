@@ -1,16 +1,17 @@
 export const sliderItems = [
+
     {
       id: 1,
-      img: "https://thumbs.dreamstime.com/b/giveaway-calligraphy-sign-graffiti-style-vintage-vector-illustration-ad-promotion-contest-image-win-gift-share-repos-130230502.jpg",
-      title: "SHARE AWAY, Don't Throw Away",
-      desc: "What you don't need anymore might be what someone else is looking for",
+      img: "https://www.ox.ac.uk/sites/files/oxford/styles/ow_medium_feature/s3/field/field_image_main/Helping%20banner.jpg?itok=aawrQgB1",
+      title: "HELP OTHERS",
+      desc: "You can help others just by sharing away your unwanted items!",
       bg: "072227",
     },
     {
       id: 2,
-      img: "https://www.ox.ac.uk/sites/files/oxford/styles/ow_medium_feature/s3/field/field_image_main/Helping%20banner.jpg?itok=aawrQgB1",
-      title: "HELP OTHERS",
-      desc: "You can help others just by sharing away your unwanted items!",
+      img: "https://thumbs.dreamstime.com/b/giveaway-calligraphy-sign-graffiti-style-vintage-vector-illustration-ad-promotion-contest-image-win-gift-share-repos-130230502.jpg",
+      title: "SHARE AWAY, Don't Throw Away",
+      desc: "What you don't need anymore might be what someone else is looking for",
       bg: "072227",
     },
     {
@@ -56,7 +57,7 @@ export const sliderItems = [
     {
       id: 7,
       img: "https://www.bellybelly.com.au/wp-content/uploads/2013/10/when-do-babies-start-talking.jpg",
-      title: "Baby",
+      title: "Baby and Kid",
     },
     {
       id: 8,
@@ -79,8 +80,8 @@ export const sliderItems = [
       title: "Elderly",
     },{
       id: 12,
-      img: "https://www.gomeltourist.com/wp-content/uploads/2021/11/Travel.jpg",
-      title: "Travel",
+      img: "https://www.independentturkish.com/sites/default/files/styles/1368x911/public/article/main_image/2021/01/28/572616-1512890421.jpg?itok=WbxLwE77",
+      title: "Other",
     },
   ];
 

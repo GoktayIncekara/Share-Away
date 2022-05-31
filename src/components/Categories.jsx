@@ -16,8 +16,8 @@ const CategoriesContainer = styled.div`
     ${mobile({padding: "10px", flexDirection: "column"})};
 `
 const Title = styled.h1`
-    font-weight: 900;
-    font-size: 900;
+    font-weight: 800;
+    font-size: 1000;
     color: #35858B;
     text-align: center;
     margin-top: 80px;

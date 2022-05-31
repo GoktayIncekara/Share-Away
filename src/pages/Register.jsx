@@ -30,14 +30,9 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-/*const PopupButton = styled.button`
-    font-size: "10px",
-    backgroundColor: "#FFF",
-`
-*/
+
 const Container = styled.div`
-    width: 105vw;
-    height: 100vh;
+    width: 100vw;
     background: linear-gradient(
         rgba(255,255,255,0.2),
         rgba(255,255,255,0.2)
@@ -60,6 +55,7 @@ const BrandWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 30px;
 `
 const ButtonWrapper = styled.div`
     display: flexbox;
@@ -79,6 +75,9 @@ const Wrapper = styled.div`
     margin-top: 30px;
     background-color: white;
     ${mobile({ width: "75%" })};
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 `
 const Title = styled.div`
     font-size: 24px;
@@ -126,7 +125,6 @@ const Register = () => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [address, setAddress] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -135,7 +133,7 @@ const Register = () => {
     async function handleRegister(e) {
 
         e.preventDefault()
-        if(localStorage.hasOwnProperty("profilePic")){
+        if(localStorage.hasOwnProperty("profilePic") != null){
             setProfilePic(localStorage.getItem("profilePic"))
         }
         else{
@@ -182,7 +180,6 @@ const Register = () => {
                     name,
                     surname,
                     email,
-                    address,
                     password,
                     profilePic,
                 }),
@@ -196,7 +193,6 @@ const Register = () => {
                 setSurname('');
                 setEmail('');
                 setPassword('');
-                setAddress('');
                 setConfirmPassword('');
                 setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
                 navigate('/login');
@@ -213,7 +209,6 @@ const Register = () => {
         setSurname('');
         setEmail('');
         setPassword('');
-        setAddress('');
         setConfirmPassword('');
         setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
     }

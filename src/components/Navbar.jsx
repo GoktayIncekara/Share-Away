@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import logoImage from "../pictures/s.png"
 import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { mobile } from "../responsive"
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom"
+import LogoutIcon from '@mui/icons-material/Logout';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 const useStyles = makeStyles((theme) => ({
     //to arrange the placement of navbar contents
@@ -100,23 +101,13 @@ const Navbar = () => {
                     </Link>
                 </Left>
                 <Right>
-                    <MenuItem>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            className={classes.button}
-                            onClick={() => LogOut()}
-                        >
-                            Sign Out
-                        </Button>
-                    </MenuItem>
                     <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
                     <MenuItem>
                         <Button
                             variant="contained"
                             size="large"
                             className={classes.button}
-                            endIcon={<AddIcon />}
+                            endIcon={<CameraAltIcon />}
                         >
                             Add Product
                         </Button>
@@ -134,6 +125,16 @@ const Navbar = () => {
                             </Button>
                         </MenuItem>
                     </Link>
+                    <MenuItem>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            className={classes.button}
+                            onClick={() => LogOut()}
+                        >
+                           <LogoutIcon/>
+                        </Button>
+                    </MenuItem>
                 </Right>
             </Toolbar>
         </AppBar>

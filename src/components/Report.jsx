@@ -55,10 +55,10 @@ const Report = () => {
   return (
       <Container>
           <Title>Report To Us</Title>
-          <Desc>Please report us to any bad usage of the website!</Desc>
+          <Desc>Your suggestions, ideas, complaints will greatly help us!</Desc>
           <InputContainer>
               <Input href="mailto:shareaway@info.com">
-              What is the problem?
+              How can we make this webpage better for you?
               </Input>
           </InputContainer>
       </Container>

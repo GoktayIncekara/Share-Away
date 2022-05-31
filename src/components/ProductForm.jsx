@@ -131,7 +131,7 @@ const ProductForm = () => {
     const [districtArr, setDistrictArr] = useState([]);
     const [shipping, setShipping] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const CategoryArr = ["home", "beauty", "game", "kids"];
+    const CategoryArr = ["Furniture", "Men Clothing", "Women Clothing", "Technology", "Home", "Books", "Baby and Kid", "Fun", "Travel", "School", "Elderly", "Other"];
 
     async function handleRegister(e) {
 
@@ -178,13 +178,14 @@ const ProductForm = () => {
     }
 
     const resetForm = () => {
-        setImage('');
-        setTitle('');
-        setDescription('');
-        setCategory('');
-        setCity('');
-        setDistrict('');
-        setShipping('');
+        setTitle('')
+        setDescription('')
+        setCategory('') 
+        setCity('') 
+        setDistrict('')
+        setDistrictArr([])
+        setShipping('')
+        
     }
     const changeCity =(e)=>{
         setCity(e.target.value) ;

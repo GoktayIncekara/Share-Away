@@ -6,6 +6,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import jwt from 'jsonwebtoken';
 
+
 const Container = styled.div`
     width: 300px;
     border-radius: 10px;
@@ -16,8 +17,7 @@ const ImgHolder = styled.div`
     margin: auto;
     width: 200px;
     height: 200px;
-	border-radius: 50%;
-	/*border: 3px black solid;*/
+	  border-radius: 50%;
     border-radius: 5px;
     margin-top: 1rem;
 `
@@ -62,7 +62,8 @@ const Input = styled.input.attrs({
   
   const ProfilePhotoUpload = () => {
     const [clicked, setClicked] = useState(false);
-    const [profileImg, setProfileImg] = useState('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
+    const [profileImg, setProfileImg] = useState(userPlaceHolder
+      );
     const user = jwt.decode(localStorage.getItem('token'));
 
   const imageHandler = (e) => {
@@ -89,7 +90,7 @@ const Input = styled.input.attrs({
 
   const cancelPhoto=(e) =>{
     setClicked(false);
-    setProfileImg('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
+    setProfileImg(userPlaceHolder);
     localStorage.removeItem('profilePic');
 
   }
