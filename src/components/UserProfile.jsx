@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import React from 'react';
+import React , {useState} from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import jwt from 'jsonwebtoken';
 import PersonalAdDashboard from './PersonalAdDashboard';
 import PhotoUpload from './ProfilePhotoUpload';
+import PassChangeForm from './PassChangeForm';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -91,6 +92,7 @@ const PasswordButton = styled.button`
 
 
 const UserProfile = () => {
+    const [passChangeForm, setPassChangeForm] = useState(false);
     const user = jwt.decode(localStorage.getItem('token'));
     console.log(user);
     return (
@@ -104,7 +106,11 @@ const UserProfile = () => {
                         <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
                         <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
                         <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
-                        <PasswordButton>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
+                        
+                    
+
+                    <PasswordButton onClick={() => setPassChangeForm(true)}>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
+                    <PassChangeForm trigger={passChangeForm} setTrigger={setPassChangeForm}/>
                     </ConstInfoContainer>
 
                 </ProfileContainer>     

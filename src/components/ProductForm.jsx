@@ -203,13 +203,13 @@ const ProductForm = () => {
                         <ProductPhotoUpload />
 
                         <InputBox>
-                        <InputTitle for="dist">Title</InputTitle>
+                        <InputTitle>Title</InputTitle>
                         <Input placeholder="Title" required type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                         </InputBox>
 
 
                         <InputBox>
-                        <InputTitle for="dist">Description</InputTitle>
+                        <InputTitle>Description</InputTitle>
                         <TextArea placeholder="Description" type="textarea" required value={description} onChange={(e) => setDescription(e.target.value)} />
                         </InputBox>
 

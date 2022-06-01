@@ -22,7 +22,7 @@ const NameLabel = styled.h2`
 `
 const Wrapper =styled.div`
     padding: 2vh 1vh 5vh 1vh;
-    margin: 10vh 0 1vh;
+    margin: 8vh 0 1vh;
     display:flex;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
     ${mobile({flexDirection: "column"})};

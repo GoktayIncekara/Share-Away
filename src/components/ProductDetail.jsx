@@ -10,7 +10,7 @@ import UserShortInfo from "./UserShortInfo";
 import {users} from "../data"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +44,7 @@ const Wrapper = styled.div`
     padding-top: 15vh;
     display:flex;
     ${mobile({flexDirection: "column"})};
+    height: 100vh;
 `
 const ImgContainer = styled.div`
     flex: 1;
@@ -60,44 +61,42 @@ const ImgContainer = styled.div`
     ${mobile({height: "30vh"})};
 `*/
 const InfoContainer = styled.div`
+    display:flex;
+    flex-direction: column;
     flex: 1;
     padding: 0px 50px;
     ${mobile({textAlign: "left"})};
     ${mobile({padding: "0px"})};
     ${mobile({marginTop: "10px"})};
 `
-const AdInfo =styled.div`
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-
-`
 
 const Title = styled.h1`
-    color: #35858B;
+    color: #072227;
     margin-bottom: 10px;
+    padding-bottom: 30px;
+    font-size: 50px;
 `
 
-const Location = styled.p`
-    display: inline-flex;
-    align-items: flex-end;
-    color: gray;
-`
-const UploadDate = styled.p`
-    display: inline-block;
-    color: gray;
-    margin: 0 0 0 2vw;
-`
 
 const Desc = styled.p`
-    margin: 20px 0px;
+    margin: 5px 0px;
 `
-const ShipInfo = styled.p`
+const SubTitle= styled.h3`
+    color:   rgb(53, 133, 139); ;  
+`
+
+const IconStyle = styled.p`
     color: gray;
     display: flex;
 `
 const UserContainer = styled.div ``
 
+const DescrContainer = styled.div`
+    margin-top: 5px;
+    background-color:  rgb(53, 133, 139, 0.2); 
+    border-radius: 10px;
+    padding: 10px;
+`
 
 const ProductDetail = () =>{
     const { id } = useParams()
@@ -113,13 +112,19 @@ const ProductDetail = () =>{
         </ImgContainer>
         <InfoContainer>
             <Title>{currentItem.name}</Title>
-            <AdInfo>
-            <Location> {<LocationOnIcon  className={classes.icon} />}  {currentUser.district}, {currentUser.city}</Location>
-            <UploadDate> {currentItem.uploadDate} </UploadDate>
-            </AdInfo>
-            <ShipInfo> {<LocalShippingIcon className={classes.icon} />} Shipping Options:  {currentItem.shipping.toString()}
-            </ShipInfo>
-            <Desc>{currentItem.desc}</Desc>
+
+            <IconStyle> <LocationOnIcon  className={classes.icon} /> Location: {currentUser.district}, {currentUser.city}</IconStyle>
+            <IconStyle> <CalendarTodayIcon className={classes.icon}  /> Published Day: {currentItem.uploadDate} </IconStyle>
+           
+            <IconStyle> <LocalShippingIcon className={classes.icon} /> Shipping Options:  {currentItem.shipping.toString()}
+            </IconStyle>
+
+            <DescrContainer>
+                <SubTitle>Description:</SubTitle>
+                <Desc>{currentItem.desc}</Desc>
+            </DescrContainer>
+
+
             <UserContainer>
                 <UserShortInfo userId = {currentItem.userId} />
                 <Button
