@@ -12,18 +12,23 @@ const Home = () => {
   const navigate = useNavigate();
  
   useEffect(() => {
+
     const token = localStorage.getItem('token')
+
     if (!token) {
       navigate('/login', { replace: true })
     }
+
     else {
       const user = jwt.decode(token)
       if (!user) {
         localStorage.removeItem('token')
+        localStorage.clear()
         navigate('/login', { replace: true })
       }
       console.log(user)
     }
+    
   }, [])
 
   return (

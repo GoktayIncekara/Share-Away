@@ -3,10 +3,10 @@ import { useState } from "react";
 import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {turkeyData} from "../cityDistrict"
 import ProductPhotoUpload from "./ProductPhotoUpload";
-
+const jwt = require('jsonwebtoken');
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
 const Container = styled.div`
     background-color: rgba(0,0,0,0.1);
     display: flex;
@@ -47,7 +46,6 @@ const Wrapper = styled.div`
     background-color: white;
     ${mobile({ width: "75%" })};
 `
-
 const ButtonWrapper = styled.div`
     display: flexbox;
     align-items: space-evenly;
@@ -55,9 +53,6 @@ const ButtonWrapper = styled.div`
     width: 100%;
     margin: 20px;
 `
-
-
-
 const Title = styled.div`
     font-size: 24px;
     font-weight: 600;
@@ -71,8 +66,6 @@ const Form = styled.form`
     flex-direction: column;
     
 `
-
-
 const Error = styled.span`
     font-size: 15px;
     margin: 15px 0 10px 0;
@@ -117,12 +110,13 @@ const TextArea = styled.textarea`
     border: 2px solid  #35858B;
     border-radius: 10px;
 `
+
 const ProductForm = () => {
 
     const classes = useStyles();
     const navigate = useNavigate();
 
-    const [image, setImage] = useState('');
+    const [productImage, setImage] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -133,49 +127,41 @@ const ProductForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const CategoryArr = ["Furniture", "Men Clothing", "Women Clothing", "Technology", "Home", "Books", "Baby and Kid", "Fun", "Travel", "School", "Elderly", "Other"];
 
-    async function handleRegister(e) {
 
+    async function addProduct(e) {
         e.preventDefault()
-
-        /*if (password !== confirmPassword) {
-            alert("Passwords do not match!")
-            setPassword('');
-            setConfirmPassword('');
-
+        
+        if (title < 3) {
+            alert("Title should be at least 3 characters long!")
+            setTitle('')
         }
-        else {
-            const response = await fetch('http://localhost:5000/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    name,
-                    surname,
-                    email,
-                    address,
-                    password,
-                }),
-            })
 
-            const data = await response.json()
+        else{
+        const response = await fetch('http://localhost:5000/user/addProduct', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token'),
+            },
+            body: JSON.stringify({
+                title,
+                description,
+                category,
+                shipping,
+                city,
+                district,
+            }),
+        })
 
-            if (data.status === 'ok') {
-                setName('');
-                setUsername('');
-                setSurname('');
-                setEmail('');
-                setPassword('');
-                setAddress('');
-                setConfirmPassword('');
-                navigate('/login');
-            }
-            if (data.status === 'error') {
-                setErrorMessage("Email or username is already used! Please try again!")
-            }
-        }*/
-    }
+        const data = await response.json()
+        if (data.status === 'ok') {
+            resetForm();
+            navigate('/Profile');
+        }
+        if (data.status === 'errorToken') {
+            setErrorMessage("User session ended!");
+        }
+    }}
 
     const resetForm = () => {
         setTitle('')
@@ -185,20 +171,20 @@ const ProductForm = () => {
         setDistrict('')
         setDistrictArr([])
         setShipping('')
-        
     }
+
     const changeCity =(e)=>{
         setCity(e.target.value) ;
         setDistrictArr( (turkeyData.find( ( selectedCity ) => selectedCity.il_adi === e.target.value)).ilceler);
-
     }
+
     return (
         <main>
             <Container>
                 <Wrapper>
                     <Title> ADD PRODUCT </Title>
 
-                    <Form onSubmit={handleRegister}>
+                    <Form onSubmit={addProduct}>
                    
                         <ProductPhotoUpload />
 
@@ -207,12 +193,10 @@ const ProductForm = () => {
                         <Input placeholder="Title" required type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                         </InputBox>
 
-
                         <InputBox>
                         <InputTitle>Description</InputTitle>
                         <TextArea placeholder="Description" type="textarea" required value={description} onChange={(e) => setDescription(e.target.value)} />
                         </InputBox>
-
                              
                         <InputBox>
                         <InputTitle for="category">Category</InputTitle>
@@ -222,8 +206,7 @@ const ProductForm = () => {
                             ))}
                         </Select>
                         </InputBox>
-
-                                                   
+                  
                         <InputBox>
                         <InputTitle for="ship">Shipping Options</InputTitle>
                         <Select name="shipping" id="ship" placeholder='Shipping Options' value={shipping} onChange={(e) => setShipping(e.target.value)}  >
@@ -251,15 +234,12 @@ const ProductForm = () => {
                         </Select>
                         </InputBox>
 
-
-
-                    
                         <Error> {errorMessage} </Error>
+
                         <ButtonWrapper>
                             <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Publish Product</Button>
                             <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
                         </ButtonWrapper>
-
 
                     </Form>
                 </Wrapper>

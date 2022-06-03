@@ -36,8 +36,6 @@ const ProfileContainer = styled.div`
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 `
-
-
 const ConstInfoContainer=styled.div`
     display: flex;
     flex-direction: column;
@@ -63,9 +61,6 @@ const ConstTitle= styled.h2`
 const ConstContent= styled.h3`
     color: #222;
 `
-
-
-
 const PasswordButton = styled.button`
 
     padding-left: 45px;
@@ -88,13 +83,12 @@ const PasswordButton = styled.button`
         
   }
 `
-
-
-
 const UserProfile = () => {
+
     const [passChangeForm, setPassChangeForm] = useState(false);
+
     const user = jwt.decode(localStorage.getItem('token'));
-    console.log(user);
+    
     return (
         <Container>
         <Wrapper>
@@ -107,8 +101,6 @@ const UserProfile = () => {
                         <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
                         <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
                         
-                    
-
                     <PasswordButton onClick={() => setPassChangeForm(true)}>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
                     <PassChangeForm trigger={passChangeForm} setTrigger={setPassChangeForm}/>
                     </ConstInfoContainer>

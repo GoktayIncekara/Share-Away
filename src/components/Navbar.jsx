@@ -77,12 +77,16 @@ const MenuItem = styled.div`
 `
 
 const Navbar = () => {
+
     const classes = useStyles();
     const navigate = useNavigate();
+
     const LogOut = () => {
         localStorage.removeItem('token')
+        localStorage.clear()
         navigate('/login', { replace: true })
     }
+
     return (
         <AppBar >
             <Toolbar className={classes.toolbar} style={{
@@ -100,7 +104,9 @@ const Navbar = () => {
                         </Typography>
                     </Link>
                 </Left>
+
                 <Right>
+
                     <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
                     <MenuItem>
                         <Button
@@ -113,6 +119,7 @@ const Navbar = () => {
                         </Button>
                     </MenuItem>
                     </Link>
+
                     <Link style={{ textDecoration: 'none' }} to={`/Profile`}>
                         <MenuItem>
                             <Button
@@ -125,6 +132,7 @@ const Navbar = () => {
                             </Button>
                         </MenuItem>
                     </Link>
+
                     <MenuItem>
                         <Button
                             variant="contained"
@@ -135,6 +143,7 @@ const Navbar = () => {
                            <LogoutIcon/>
                         </Button>
                     </MenuItem>
+                    
                 </Right>
             </Toolbar>
         </AppBar>
