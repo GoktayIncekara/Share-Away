@@ -18,7 +18,6 @@ const Info = styled.div`
     transition: all 0.5s ease;
     cursor: pointer;
 `
-
 const Container = styled.div`
     flex: 1;
     margin: 5px;

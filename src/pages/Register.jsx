@@ -6,8 +6,6 @@ import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
 import PhotoUpload from '../components/ProfilePhotoUpload';
 
-
-
 const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: "#4FBDBA",
@@ -29,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-
 
 const Container = styled.div`
     width: 100vw;
@@ -63,7 +60,6 @@ const ButtonWrapper = styled.div`
     justify-content: center;
     width: 100%;
 `
-
 const Brand = styled.h1`
     font-size: 2vw;
     font-weight: 700;
@@ -115,8 +111,8 @@ const Error = styled.span`
     color: red;
     justify-content: "center;
 `
-
 const Register = () => {
+    
     const classes = useStyles();
     const navigate = useNavigate();
 
@@ -142,29 +138,24 @@ const Register = () => {
         
         if (password !== confirmPassword) {
             alert("Passwords do not match!")
-            setPassword('');
-            setConfirmPassword('');
+            resetPassword()
 
         }
         else if(password.length<6){
             alert("Password should be minimum 6 characters long!")
-            setPassword('');
-            setConfirmPassword(''); 
+            resetPassword() 
         }
         else if(username.length<5){
             alert("Username should be minimum 5 characters long!")
-            setPassword('');
-            setConfirmPassword(''); 
+            resetPassword() 
         }
         else if(name.length<3){
             alert("Name should be minimum 2 characters long!")
-            setPassword('');
-            setConfirmPassword(''); 
+            resetPassword()
         }
         else if(surname.length<3){
             alert("Surname should be minimum 2 characters long!")
-            setPassword('');
-            setConfirmPassword(''); 
+            resetPassword()
         }
         else if(profilePic === null){
             alert("There is no pp")
@@ -188,19 +179,18 @@ const Register = () => {
             const data = await response.json()
 
             if (data.status === 'ok') {
-                setName('');
-                setUsername('');
-                setSurname('');
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-                setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
+                resetForm();
                 navigate('/login');
             }
             if (data.status === 'error') {
                 setErrorMessage("Email or username is already used! Please try again!")
             }
         }
+    }
+
+    const resetPassword = () =>{
+        setPassword('');
+        setConfirmPassword('');
     }
 
     const resetForm = () => {
@@ -212,9 +202,6 @@ const Register = () => {
         setConfirmPassword('');
         setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
     }
-
-    
-
 
     return (
         <main>
@@ -228,8 +215,6 @@ const Register = () => {
                     <Title> CREATE AN ACCOUNT</Title>
                                             
                     <PhotoUpload/>
-
-                        
 
                     <Form onSubmit={handleRegister}>
 

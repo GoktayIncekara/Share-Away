@@ -124,38 +124,52 @@ function PassChangeForm(props) {
     async function handleSubmit (event)  {
         
         event.preventDefault()
+        if (newPass !== newPassAgain) {
+            alert("Passwords do not match!")
+            resetForm()
+        }
+        else if (newPass == oldPass) {
+            alert("New password can not be same as the old password!")
+            resetForm()
+        }
+        else if(newPass.length<6){
+            alert("Password should be minimum 6 characters long!")
+            resetForm()
+        }
 
-        const response = await fetch('http://localhost:5000/user/changePassword', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-access-token': localStorage.getItem('token'),
-                },
-                body: JSON.stringify({
-                    oldPass,
-                    newPass,
-                }),
+        else{
+            const response = await fetch('http://localhost:5000/user/changePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token': localStorage.getItem('token'),
+                    },
+                    body: JSON.stringify({
+                        oldPass,
+                        newPass,
+                    }),
         })
 
-        const data = await response.json()
+            const data = await response.json()
 
-        if (data.status === 'error') {
-            setErrorMessage("user not found \n")
-        }
-        else{
+            if (data.status === 'error') {
+                setErrorMessage("user not found \n")
+            }
             if (data.status === 'errorPassword') {
                 setErrorMessage("Old password is wrong!")
-                setOldPass('');
-                setNewPass('');
-                setNewPassAgain('');
+                resetForm();
             }
             if (data.status === 'ok') {
-                setOldPass('');
-                setNewPass('');
-                setNewPassAgain('');
-                window.location.href = '/homepage';
-                
+                resetForm();
+                window.location.href = '/login';        
         }}
+        
+    }
+
+    const resetForm = () => {
+        setOldPass('');
+        setNewPass('');
+        setNewPassAgain('');
     }
 
     return (props.trigger) ? (
