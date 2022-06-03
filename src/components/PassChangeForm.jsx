@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useState} from "react";
 import { Button, makeStyles } from '@material-ui/core';
 import BackspaceIcon from '@mui/icons-material/Backspace';
+
 import PositiveNotification from './PositiveNotification';
 import NegativeNotification from './NegativeNotification';
 
@@ -94,6 +95,15 @@ const Title = styled.div`
     align-items: center;
     color: #072227;
 `
+const Error = styled.span`
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    font-weight: 600;
+    display: "flex";
+    color: red;
+    justify-content: "center;
+    ` 
+
 function PassChangeForm(props) {
     const classes = useStyles();
 
@@ -103,23 +113,54 @@ function PassChangeForm(props) {
     const [oldPass, setOldPass] = useState('');
     const [newPass, setNewPass] = useState('');
     const [newPassAgain, setNewPassAgain] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     const handleClose = () => {
         handleSubmit()
         props.setTrigger(false)
     }
 
+    async function handleSubmit (event)  {
+        
+        event.preventDefault()
 
-    const handleSubmit = (e) => {
-        //add to database
+        const response = await fetch('http://localhost:5000/user/changePassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token'),
+                },
+                body: JSON.stringify({
+                    oldPass,
+                    newPass,
+                }),
+        })
 
+        const data = await response.json()
+
+        if (data.status === 'error') {
+            setErrorMessage("user not found \n")
+        }
+        else{
+            if (data.status === 'errorPassword') {
+                setErrorMessage("Old password is wrong!")
+                setOldPass('');
+                setNewPass('');
+                setNewPassAgain('');
+            }
+            if (data.status === 'ok') {
+                setOldPass('');
+                setNewPass('');
+                setNewPassAgain('');
+                window.location.href = '/homepage';
+                
+        }}
     }
 
     return (props.trigger) ? (
         <Container>
-
                 <PassContainer>
-
                     <Back>
                         <BackspaceIcon onClick={() => props.setTrigger(false)}></BackspaceIcon>
                         <h6>Go Back</h6>
@@ -127,28 +168,27 @@ function PassChangeForm(props) {
 
                     <Title>Change Password</Title>
 
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleClose}>
                         <InputBox>
                         <InputTitle>Old Password</InputTitle>
-                        <Input  required type="text" value={oldPass} onChange={(e) => setOldPass(e.target.value)} />
+                        <Input  required type="password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} />
                         </InputBox>
 
 
                         <InputBox>
                         <InputTitle>New Password</InputTitle>
-                        <Input required type="text" value={newPass} onChange={(e) => setNewPass(e.target.value)} />
+                        <Input required type="password" value={newPass} onChange={(e) => setNewPass(e.target.value)} />
                         </InputBox>
 
                         <InputBox>
                         <InputTitle>New Password Again</InputTitle>
-                        <Input  required type="text" value={newPassAgain} onChange={(e) => setNewPassAgain(e.target.value)} />
+                        <Input  required type="password" value={newPassAgain} onChange={(e) => setNewPassAgain(e.target.value)} />
                         </InputBox>
-
-
                         
-                         <Button type="submit" className={classes.button} sx={{ width: 'auto' }} onClick={handleClose}>Change Password</Button>
+                        <Error> {errorMessage} </Error> 
 
-                    
+                        <Button type="submit" className={classes.button} sx={{ width: 'auto' }} onClick={handleSubmit}>Change Password</Button>
+
                         <PositiveNotification trigger={added} setTrigger={setAdded} message="hey"></PositiveNotification>
                         <NegativeNotification trigger={notAdded} setTrigger={setNotAdded} message="nbr"></NegativeNotification>
                     </Form>
