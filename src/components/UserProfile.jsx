@@ -206,8 +206,18 @@ const UserProfile = () => {
         const formData = new FormData();
         formData.append('username', user.username)
         formData.append('profilePic', profilePic)
+
         const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
-        navigate('/profile');
+        console.log(response.data.status)
+
+        if (response.data.status == 'okPPupdate') {
+            window.location.href = '/homepage'
+        }
+        if (response.data.status == 'errorPPupdate') {
+            alert("Profile picture update procedure interrupted!")
+        }
+
+        
     }
 
 
@@ -216,7 +226,7 @@ const UserProfile = () => {
             <Wrapper>
                 <InfoContainer>
                     <ProfileContainer>
-                        <form onSubmit={ChangePicture()} encType='multipart/form-data'>
+                        <form onSubmit={ChangePicture} encType='multipart/form-data'>
                             <ContainerImg>
                                 <UploadLabel >
                                     <ImageUpload htmlFor="input">
