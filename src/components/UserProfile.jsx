@@ -40,7 +40,7 @@ const useStylesImg = makeStyles((theme) => ({
 
 const ContainerImg = styled.div`
     width: 25vw;
-    height: 20vw;
+    height: 22vw;
     border-radius: 10px;
     background-color:  rgb(53, 133, 139, 0.2); 
     padding: 10px 20px;

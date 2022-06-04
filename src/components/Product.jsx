@@ -41,10 +41,10 @@ const Circle = styled.div`
     position: absolute;
 
 `
-/* const Image = styled.img`
-    height: 75%;
+const Image = styled.img`
+    height: 10vw;
     z-index: 2;
-` */
+`
 
 const Icon = styled.div`
     width: 40px;
@@ -62,24 +62,28 @@ const Icon = styled.div`
         transform: scale(1.1);
     }
 `
-const Product = ({item}) => {
-  return (
-    
+const Product = ({ item }) => {
+
+    localStorage.setItem('currentPhoto', item.productPicture)
+
+    return (
+
         <Container>
             <Circle />
             {/* <Icon>
             </Icon> */}
-            {/* <Image src={item.imgArray[0].img} /> */}
+            <Image src={require('../pictures/' + item.productPicture)} alt="" id="img" />
+
             <Info>
                 <Icon>
                     <Link to={`/products/${item._id}`}>
-                    <VisibilityIcon />
+                        <VisibilityIcon />
                     </Link>
                 </Icon>
             </Info>
         </Container>
-     
-  )
+
+    )
 }
 
 export default Product
