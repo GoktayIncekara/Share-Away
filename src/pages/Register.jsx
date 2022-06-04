@@ -4,7 +4,92 @@ import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
-import PhotoUpload from '../components/ProfilePhotoUpload';
+
+import ProfilePlaceHolder from '../pictures/user.png'
+import axios from 'axios';
+
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+
+//------------------------------------
+const useStylesImg = makeStyles((theme) => ({
+    button: {
+        backgroundColor: "#072227",
+
+        borderRadius: "20px",
+        fontWeight: "900",
+        fontSize: "12px",
+        margin: "10px 10px",
+        width: "30px",
+        height: "35px",
+        color: 'white',
+        '&:hover': {
+            backgroundColor: "#072227",
+
+            color: "white",
+        },
+        [theme.breakpoints.down("sm")]: {
+            height: "40px",
+            width: "auto"
+        }
+    }
+
+}));
+
+
+
+const ContainerImg = styled.div`
+    width: 25vw;
+    height: 15vw;
+    border-radius: 10px;
+    background-color:  rgb(53, 133, 139, 0.2); 
+    padding: 10px 20px;
+    margin: 5px 0 8px 6vw;
+    display: block;
+  `
+const ImgHolder = styled.div`
+      margin: auto;
+      width: 200px;
+      height: 200px;
+        border-radius: 50%;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      display: flex;
+    justify-content: center;
+  `
+const ImageUpload = styled.label`
+      margin: auto;
+      width: 200px;
+      height: 35px;
+      color: white;
+      border-radius: 20px;
+      background-color: #072227;
+      text-align: center;
+      cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  `
+const UploadLabel = styled.div`
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  `
+const Img = styled.img`
+      width: 8vw;
+    height: 8vw;
+      border-radius: 50%;
+  
+  `
+
+
+const InputImg = styled.input.attrs({
+    type: 'file',
+})`
+  
+      display: none;
+    `
+
+//---------------------------
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -29,14 +114,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Container = styled.div`
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(
         rgba(255,255,255,0.2),
         rgba(255,255,255,0.2)
     ),
-    url("https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg") 
-    center no-repeat;
-    background-size: cover;
+    url("https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg") center no-repeat;
+    background-size: 100% 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,6 +200,8 @@ const Register = () => {
     
     const classes = useStyles();
     const navigate = useNavigate();
+    const classesImg = useStylesImg();
+    const [profileImg, setProfileImg] = useState(ProfilePlaceHolder)
 
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
@@ -125,43 +212,72 @@ const Register = () => {
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const imageHandler = (e) => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setProfileImg(reader.result)
+                setProfilePic(e.target.files[0])
+            }
+        }
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
+
+    const RemovePicture = () => {
+        setProfileImg(ProfilePlaceHolder)
+        setProfilePic(ProfilePlaceHolder)
+    }
+
 
     async function handleRegister(e) {
 
         e.preventDefault()
-        if(localStorage.hasOwnProperty("profilePic") != null){
+        /* if (localStorage.hasOwnProperty("profilePic") != null) {
             setProfilePic(localStorage.getItem("profilePic"))
+            //console.log(profilePic)
         }
-        else{
-            setProfilePic("http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png")
-        }
-        
+        if (localStorage.hasOwnProperty("profilePic") === null) {
+            setProfilePic(ProfilePlaceHolder)
+            //console.log(profilePic)
+        } */
+
         if (password !== confirmPassword) {
             alert("Passwords do not match!")
             resetPassword()
 
         }
-        else if(password.length<6){
+        else if (password.length < 6) {
             alert("Password should be minimum 6 characters long!")
             resetPassword() 
         }
-        else if(username.length<5){
+        else if (username.length < 5) {
             alert("Username should be minimum 5 characters long!")
             resetPassword() 
         }
-        else if(name.length<3){
+        else if (name.length < 3) {
             alert("Name should be minimum 2 characters long!")
             resetPassword()
         }
-        else if(surname.length<3){
+        else if (surname.length < 3) {
             alert("Surname should be minimum 2 characters long!")
             resetPassword()
         }
-        else if(profilePic === null){
-            alert("There is no pp")
-        }
         else {
-            const response = await fetch('http://localhost:5000/user/register', {
+
+            const formData = new FormData();
+
+            formData.append('username', username);
+            formData.append('name', name);
+            formData.append('surname', surname);
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('profilePic', profilePic);
+
+            /* const response = await fetch('http://localhost:5000/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -174,15 +290,40 @@ const Register = () => {
                     password,
                     profilePic,
                 }),
-            })
+            }); */
 
-            const data = await response.json()
+            const response = await axios.post('http://localhost:5000/user/register', formData)
+
+
+            /* const response = await fetch('http://localhost:5000/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: formData,
+            }); */
+
+            console.log("from frontend: " + response.data.status + " end of frontend")
+            /* const data = await response.json()
 
             if (data.status === 'ok') {
                 resetForm();
                 navigate('/login');
             }
-            if (data.status === 'error') {
+            if (data.status === 'Error') {
+                setErrorMessage("Email or username is already used! Please try again!")
+            } */
+            if (response.data.status == 'ok') {
+                setName('');
+                setUsername('');
+                setSurname('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+                setProfilePic(ProfilePlaceHolder);
+                navigate('/login');
+            }
+            if (response.data.status == 'error') {
                 setErrorMessage("Email or username is already used! Please try again!")
             }
         }
@@ -200,8 +341,11 @@ const Register = () => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setProfilePic('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
+        setProfilePic(ProfilePlaceHolder);
     }
+
+
+
 
     return (
         <main>
@@ -210,13 +354,27 @@ const Register = () => {
                     <Brand>SHARE AWAY</Brand>
                 </BrandWrapper>
                 <Wrapper>
-                
+
 
                     <Title> CREATE AN ACCOUNT</Title>
-                                            
-                    <PhotoUpload/>
 
-                    <Form onSubmit={handleRegister}>
+
+                    <Form onSubmit={handleRegister} encType='multipart/form-data'>
+
+                        <ContainerImg>
+                            <UploadLabel >
+                                <ImageUpload htmlFor="input">
+                                    <CameraAltIcon sx={{ margin: "10px" }} /> <h5>Choose Photo</h5>
+
+                                </ImageUpload>
+                                <Button type="reset" onClick={() => RemovePicture()} className={classesImg.button}>X</Button>
+                            </UploadLabel>
+
+                            <ImgHolder>
+                                <Img src={profileImg} alt="" id="img" className="img" />
+                            </ImgHolder>
+                            <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
+                        </ContainerImg>
 
                         <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
@@ -230,7 +388,7 @@ const Register = () => {
 
                         <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a  style={{textDecoration: 'none'}} target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
+                        <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
                         </Agreement>
                         <Error> {errorMessage} </Error>
                         <ButtonWrapper>

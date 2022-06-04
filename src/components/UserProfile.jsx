@@ -1,10 +1,97 @@
 import styled from 'styled-components'
-import React , {useState} from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import jwt from 'jsonwebtoken';
 import PersonalAdDashboard from './PersonalAdDashboard';
-import PhotoUpload from './ProfilePhotoUpload';
 import PassChangeForm from './PassChangeForm';
+import { Button, makeStyles } from '@material-ui/core';
+import ProfilePlaceHolder from '../pictures/445af1e4-f1c5-4f71-8cbf-597c907b3f5f-1654335541504.jpg'
+import axios from 'axios';
+
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+
+//------------------------------------
+const useStylesImg = makeStyles((theme) => ({
+    button: {
+        backgroundColor: "#072227",
+
+        borderRadius: "20px",
+        fontWeight: "700",
+        fontSize: "15px",
+        margin: "10px 10px",
+        width: "30px",
+        height: "35px",
+        color: 'white',
+        '&:hover': {
+            backgroundColor: "#072227",
+
+            color: "white",
+        },
+        [theme.breakpoints.down("sm")]: {
+            height: "40px",
+            width: "auto"
+        }
+    }
+
+}));
+
+
+
+const ContainerImg = styled.div`
+    width: 25vw;
+    height: 20vw;
+    border-radius: 10px;
+    background-color:  rgb(53, 133, 139, 0.2); 
+    padding: 10px 20px;
+    margin: 5px 0 8px 2vw;
+    display: block;
+  `
+const ImgHolder = styled.div`
+      margin: auto;
+      width: 300px;
+      height: 300px;
+        border-radius: 50%;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      display: flex;
+    justify-content: center;
+  `
+const ImageUpload = styled.label`
+      margin: auto;
+      width: 200px;
+      height: 35px;
+      color: white;
+      border-radius: 20px;
+      background-color: #072227;
+      text-align: center;
+      cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  `
+const UploadLabel = styled.div`
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  `
+const Img = styled.img`
+    width: 13vw;
+    height: 13vw;
+    border-radius: 50%;
+  
+  `
+
+
+const InputImg = styled.input.attrs({
+    type: 'file',
+})`
+  
+      display: none;
+    `
+
+//---------------------------
+
 
 const Container = styled.div`
     margin-top: 60px;
@@ -45,20 +132,20 @@ const ConstInfoContainer=styled.div`
     
 
 `
-const ConstInfo=styled.div`
+const ConstInfo = styled.div`
     display: flex;
     align-items: flex-end;
     margin: 15px;
     padding: 5px;
     
 `
-const ConstTitle= styled.h2`
+const ConstTitle = styled.h2`
     color: #35858B;;
     /*text-decoration: underline;
     text-decoration-color: #35858B;*/
     margin-right: 10px;
 `
-const ConstContent= styled.h3`
+const ConstContent = styled.h3`
     color: #222;
 `
 const PasswordButton = styled.button`
@@ -84,36 +171,96 @@ const PasswordButton = styled.button`
   }
 `
 const UserProfile = () => {
+    const navigate = useNavigate();
+    const classesImg = useStylesImg();
+
+    
+
+    const token = localStorage.getItem('token')
+    const user = jwt.decode(localStorage.getItem('token'));
+    if (!token) {
+        navigate('/login', { replace: true })
+    }
+    else {
+        const user = jwt.decode(token)
+
+        console.log(user)
+    }
+
 
     const [passChangeForm, setPassChangeForm] = useState(false);
 
-    const user = jwt.decode(localStorage.getItem('token'));
-    
+    const [profilePic, setProfilePic] = useState('');
+
+   
+    const imageHandler = (e) => {
+
+        const reader = new FileReader();
+ 
+         reader.onload = () => {
+             if (reader.readyState === 2) {
+                 setProfilePic(e.target.files[0])
+             }
+         }
+         if (e.target.files[0]) {
+             reader.readAsDataURL(e.target.files[0]);
+         }
+    };
+
+    async function ChangePicture (e) {
+        /* setProfileImg(ProfilePlaceHolder)
+        setProfilePic(ProfilePlaceHolder) */
+        
+        const formData = new FormData();
+        formData.append('username', user.username)
+        formData.append('profilePic', profilePic)
+        const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
+        navigate('/profile');
+    }
+
+
     return (
         <Container>
-        <Wrapper>
-            <InfoContainer>
-                <ProfileContainer>
+            <Wrapper>
+                <InfoContainer>
+                    <ProfileContainer>
+                        <form onSubmit={ChangePicture()} encType='multipart/form-data'>
+                            <ContainerImg>
+                                <UploadLabel >
+                                    <ImageUpload htmlFor="input">
+                                        <CameraAltIcon sx={{ margin: "10px" }} /> <h5>Update Photo</h5>
 
-                    <PhotoUpload/>
-                    <ConstInfoContainer>
-                        <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
-                        <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
-                        <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
-                        
-                    <PasswordButton onClick={() => setPassChangeForm(true)}>Change Password <EditIcon style={{paddingLeft: "5px"}} /></PasswordButton>
-                    <PassChangeForm trigger={passChangeForm} setTrigger={setPassChangeForm}/>
-                    </ConstInfoContainer>
+                                    </ImageUpload>
+                                    <Button type="submit" className={classesImg.button}>✔</Button>
+                                </UploadLabel>
 
-                </ProfileContainer>     
-            </InfoContainer>
-            
-            <PersonalAdDashboard/>
+                                <ImgHolder>
+                                    <Img src={require('../pictures/' + user.profilePic)} alt="" id="img" className="img" />
+                                </ImgHolder>
+                                <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
+                            </ContainerImg>
+                        </form>
+                        <ConstInfoContainer>
+                            <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
+                            <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
+                            <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
 
-        </Wrapper>
+
+
+                            <PasswordButton onClick={() => setPassChangeForm(true)}>Change Password <EditIcon style={{ paddingLeft: "5px" }} /></PasswordButton>
+                            <PassChangeForm trigger={passChangeForm} setTrigger={setPassChangeForm} />
+                        </ConstInfoContainer>
+
+                    </ProfileContainer>
+                </InfoContainer>
+
+                <PersonalAdDashboard />
+
+            </Wrapper>
         </Container>
 
     )
+
 }
 
 export default UserProfile;
