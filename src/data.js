@@ -2,21 +2,25 @@ export const sliderItems = [
 
     {
       id: 1,
-      img: "https://www.ox.ac.uk/sites/files/oxford/styles/ow_medium_feature/s3/field/field_image_main/Helping%20banner.jpg?itok=aawrQgB1",
+      img:"https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+      //img: "https://www.ox.ac.uk/sites/files/oxford/styles/ow_medium_feature/s3/field/field_image_main/Helping%20banner.jpg?itok=aawrQgB1",
       title: "HELP OTHERS",
       desc: "You can help others just by sharing away your unwanted items!",
       bg: "072227",
     },
     {
       id: 2,
-      img: "https://thumbs.dreamstime.com/b/giveaway-calligraphy-sign-graffiti-style-vintage-vector-illustration-ad-promotion-contest-image-win-gift-share-repos-130230502.jpg",
+      img:"https://api-v3.twenty20.com/items/71094419-e58b-4cd7-a6a7-07c20ba0c6ec/images/item-share",
+      //img : "https://images.assetsdelivery.com/compings_v2/kotokomi/kotokomi1511/kotokomi151100139.jpg",
+      //img: "https://cdn.shopify.com/s/files/1/0396/0330/6541/files/giveaway_text.png?v=1599861334",
+      //img: "https://thumbs.dreamstime.com/b/giveaway-calligraphy-sign-graffiti-style-vintage-vector-illustration-ad-promotion-contest-image-win-gift-share-repos-130230502.jpg",
       title: "SHARE AWAY, Don't Throw Away",
       desc: "What you don't need anymore might be what someone else is looking for",
       bg: "072227",
     },
     {
       id: 3,
-      img: "https://image.shutterstock.com/image-vector/sport-fitness-equipment-gear-items-260nw-1145070740.jpg",
+      img:"https://i.ytimg.com/vi/tJUFXOma_o4/maxresdefault.jpg",
       title: "IT CAN BE ANYTHING",
       desc: "The item can be in any category, there is no restrictions!",
       bg: "072227",
@@ -36,7 +40,7 @@ export const sliderItems = [
     },
     {
       id: 3,
-      img: "https://media.gettyimages.com/photos/rear-view-of-a-woman-choosing-a-dress-in-a-clothing-store-picture-idstk319165rkn",
+      img: "https://media.istockphoto.com/photos/plus-size-woman-choose-fashioned-dress-in-store-plus-size-women-picture-id1327764261?b=1&k=20&m=1327764261&s=170667a&w=0&h=_As4ddbijM1HqHtB_26Coik3SIXbOv77JAj-wqnIfgI=",
       title: "Women",
     },
     {
@@ -56,7 +60,7 @@ export const sliderItems = [
     },
     {
       id: 7,
-      img: "https://www.bellybelly.com.au/wp-content/uploads/2013/10/when-do-babies-start-talking.jpg",
+      img: "https://article.innovadatabase.com/articleimgs/article_images/6372307101099019562104NI%20baby.JPG",
       title: "Baby-Kid",
     },
     {

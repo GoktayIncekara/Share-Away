@@ -4,6 +4,7 @@ import React from "react"
 import {sliderItems} from "../data"
 import { Button, makeStyles} from '@material-ui/core';
 import {mobile} from "../responsive"
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -153,7 +154,7 @@ const Slider = () => {
                 {sliderItems.map((item) => (
                     <Slide bg={item.bg} key={item.id}>
                         <ImgContainer>
-                            <Image src={item.img}/>
+                            <Image src={item.img} />
                         </ImgContainer>
 
                         <InfoContainer>
@@ -161,13 +162,16 @@ const Slider = () => {
                             <Title>{item.title}</Title>
                             <Desc>{item.desc}</Desc>
                         </Text>    
-                        <Button
+
+                        <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
+                        <Button 
                             variant="contained"
                             size="large"
                             className={classes.button}
                         >
                         Start Helping
                         </Button>
+                        </Link>
                         </InfoContainer>
                     </Slide>
                 ))}

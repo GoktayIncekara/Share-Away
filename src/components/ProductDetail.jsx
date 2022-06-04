@@ -131,6 +131,8 @@ const ProductDetail = () =>{
     const crDate = String(product.createdAt).split('T')[0]
     console.log(crDate)
 
+    const emailtosend = "mailto:" + product.email
+
     return(
         <Wrapper>
         <ImgContainer>
@@ -154,7 +156,7 @@ const ProductDetail = () =>{
 
             {<UserContainer>
                 <UserShortInfo username = {product.username}/>  
-                <Button
+                <Button href = {emailtosend}
                 variant="contained"
                 size="large"
                 className={classes.button}
