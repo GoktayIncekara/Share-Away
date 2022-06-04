@@ -120,7 +120,7 @@ const ProfileContainer = styled.div`
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 `
-const ConstInfoContainer=styled.div`
+const ConstInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 30px;
@@ -142,6 +142,15 @@ const ConstTitle = styled.h2`
 const ConstContent = styled.h3`
     color: #222;
 `
+const Error = styled.span`
+    font-size: 15px;
+    margin: 0px 0 0px 20px;
+    font-weight: 600;
+    display: "flex";
+    color: black;
+    justify-content: "center";
+`
+
 const PasswordButton = styled.button`
     padding-left: 45px;
     border-radius: 10px;
@@ -184,41 +193,42 @@ const UserProfile = () => {
     const [passChangeForm, setPassChangeForm] = useState(false);
 
     const [profilePic, setProfilePic] = useState('');
-
-
+    const [errorMessage, setErrorMessage] = useState('');
     const imageHandler = (e) => {
 
         const reader = new FileReader();
- 
-         reader.onload = () => {
-             if (reader.readyState === 2) {
-                 setProfilePic(e.target.files[0])
-             }
-         }
-         if (e.target.files[0]) {
-             reader.readAsDataURL(e.target.files[0]);
-         }
+
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setProfilePic(e.target.files[0])
+                setErrorMessage("Ready to upload: Click ✓ to Complete!")
+            }
+        }
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
     };
 
-    async function ChangePicture (e) {
-        /* setProfileImg(ProfilePlaceHolder)
-        setProfilePic(ProfilePlaceHolder) */
-        
+    async function ChangePicture(e) {
+
         const formData = new FormData();
         formData.append('username', user.username)
         formData.append('profilePic', profilePic)
 
         const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
-        console.log(response.data.status)
 
-        if (response.data.status == 'okPPupdate') {
-            window.location.href = '/homepage'
+
+        if (response.data.status == 'ok') {
+            localStorage.removeItem('token')
+            localStorage.clear()
+            localStorage.setItem('token', response.data.user)
+            window.location.href = '/profile'
         }
         if (response.data.status == 'errorPPupdate') {
             alert("Profile picture update procedure interrupted!")
         }
 
-        
+
     }
 
 
@@ -236,12 +246,13 @@ const UserProfile = () => {
                                     </ImageUpload>
                                     <Button type="submit" className={classesImg.button}>✔</Button>
                                 </UploadLabel>
-
+                                <Error> {errorMessage} </Error>
                                 <ImgHolder>
                                     <Img src={require('../pictures/' + user.profilePic)} alt="" id="img" className="img" />
                                 </ImgHolder>
                                 <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
                             </ContainerImg>
+
                         </form>
                         <ConstInfoContainer>
                             <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
@@ -257,7 +268,7 @@ const UserProfile = () => {
                     </ProfileContainer>
                 </InfoContainer>
 
-                <PersonalAdDashboard username = {user.username}/>
+                <PersonalAdDashboard username={user.username} />
 
             </Wrapper>
         </Container>
