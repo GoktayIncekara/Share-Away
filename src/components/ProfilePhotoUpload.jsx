@@ -1,17 +1,43 @@
 import styled from "styled-components"
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button, makeStyles } from '@material-ui/core';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import userPlaceHolder from '../pictures/user.png'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import jwt from 'jsonwebtoken';
+import ProfilePlaceHolder from '../pictures/user.png'
+
+const useStylesImg = makeStyles((theme) => ({
+  button: {
+    backgroundColor: "#072227",
+
+    borderRadius: "20px",
+    fontWeight: "900",
+    fontSize: "12px",
+    margin: "10px 10px",
+    width: "30px",
+    height: "35px",
+    color: 'white',
+    '&:hover': {
+      backgroundColor: "#072227",
+
+      color: "white",
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: "40px",
+      width: "auto"
+    }
+  }
+
+}));
 
 
-const Container = styled.div`
-    width: 300px;
+
+const ContainerImg = styled.div`
+    width: 20vw;
+    height: 15vw;
     border-radius: 10px;
     background-color:  rgb(53, 133, 139, 0.2); 
-	padding: 20px;
+	  padding: 10px 20px;
+    margin: 5px 0 8px 0;
+
 `
 const ImgHolder = styled.div`
     margin: auto;
@@ -19,7 +45,9 @@ const ImgHolder = styled.div`
     height: 200px;
 	  border-radius: 50%;
     border-radius: 5px;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+  justify-content: center;
 `
 const ImageUpload = styled.label`
     margin: auto;
@@ -36,88 +64,69 @@ const ImageUpload = styled.label`
 `
 const UploadLabel = styled.div`
     width: 100%;
-    margin-top: 1rem;
     display: flex;
     justify-content: center;
 `
-const Img =styled.img`
-	width: 200px;
-    height: 200px;
+const Img = styled.img`
+	width: 8vw;
+  height: 8vw;
 	border-radius: 50%;
-    object-fit: cover;
-`
-const UploadButtons =styled.div`
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
+
 `
 
-const Input = styled.input.attrs({ 
-	type: 'file',
-  })`
+
+const InputImg = styled.input.attrs({
+  type: 'file',
+})`
 
 	display: none;
   `
-  
-  const ProfilePhotoUpload = () => {
-    const [clicked, setClicked] = useState(false);
-    const [profileImg, setProfileImg] = useState(userPlaceHolder
-      );
-    const user = jwt.decode(localStorage.getItem('token'));
+
+const ProfilePhotoUpload = () => {
+  const classesImg = useStylesImg();
+  const [profileImg, setProfileImg] = useState(ProfilePlaceHolder);
 
   const imageHandler = (e) => {
-    setClicked(true);
+
     const reader = new FileReader();
-    reader.onload = () =>{
-      if(reader.readyState === 2){
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
         setProfileImg(reader.result)
+        localStorage.setItem("profilePic", (e.target.files[0]))
+        console.log(e.target.files[0])
       }
     }
-    reader.readAsDataURL(e.target.files[0])
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
-  const handleClick = ()=>{
-    localStorage.removeItem('profilePic');
+
+
+  const RemovePicture = () => {
+    localStorage.clear()
+    setProfileImg(ProfilePlaceHolder)
+    localStorage.setItem("profilePic", (profileImg))
+    console.log(profileImg)
   }
-  const approvePhoto=(e) =>{
-      console.log("approved");
-      localStorage.setItem("profilePic", (profileImg));
-      setProfileImg(localStorage.getItem("profilePic"));
-      setClicked(false);
-      //upload photo to the database
-  }
-  console.log("LOCALSTROGA PP ppu",localStorage.getItem("profilePic") )
-
-  const cancelPhoto=(e) =>{
-    setClicked(false);
-    setProfileImg(userPlaceHolder);
-    localStorage.removeItem('profilePic');
-
-  }
-  console.log(clicked);
-		return (
-			<Container>
-      	<UploadLabel >
-				<ImageUpload htmlFor="input" onClick={handleClick}>
-					<CameraAltIcon sx={{margin: "10px"}} /> <h5>Choose your photo</h5></ImageUpload>
-				</UploadLabel>
-
-				<ImgHolder>
-					<Img src={localStorage.hasOwnProperty("profilePic") ? localStorage.getItem("profilePic"): localStorage.hasOwnProperty("token")? user.profilePic: profileImg} alt="" id="img" className="img" />
-				</ImgHolder>
-					<Input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
-
-        {clicked ? 
-        <UploadButtons >
-        <CheckCircleOutlineIcon sx={{ fontSize: 50, marginRight: "10px", }} onClick={approvePhoto}/>
-        <HighlightOffIcon sx={{ fontSize: 50 }} onClick={cancelPhoto}/>
-        </UploadButtons>
-        : ""}
 
 
-         
-			</Container>
-		);
-	}
+  return (
+    <ContainerImg>
+      <UploadLabel >
+        <ImageUpload htmlFor="input">
+          <CameraAltIcon sx={{ margin: "10px" }} /> <h5>Choose Photo</h5>
+
+        </ImageUpload>
+        <Button type="reset" onClick={() => RemovePicture()} className={classesImg.button}>X</Button>
+      </UploadLabel>
+
+      <ImgHolder>
+        <Img src={profileImg} alt="" id="img" className="img" />
+      </ImgHolder>
+      <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
+    </ContainerImg>
+  );
+}
 
 export default ProfilePhotoUpload;

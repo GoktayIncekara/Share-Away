@@ -3,10 +3,12 @@ import logoImage from "../pictures/s.png"
 import PersonIcon from '@mui/icons-material/Person';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { mobile } from "../responsive"
-import React from 'react';
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import LogoutIcon from '@mui/icons-material/Logout';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import jwt from 'jsonwebtoken'
+import { isCursorAtEnd } from '@testing-library/user-event/dist/utils';
 
 const useStyles = makeStyles((theme) => ({
     //to arrange the placement of navbar contents
@@ -77,8 +79,20 @@ const MenuItem = styled.div`
 `
 
 const Navbar = () => {
-    const classes = useStyles();
+
     const navigate = useNavigate();
+
+    const token = localStorage.getItem('token')
+    if (!token) {
+        navigate('/login', { replace: true })
+    }
+
+    const user = jwt.decode(token)
+
+
+
+    const classes = useStyles();
+
     const LogOut = () => {
         localStorage.removeItem('token')
         navigate('/login', { replace: true })
@@ -102,16 +116,16 @@ const Navbar = () => {
                 </Left>
                 <Right>
                     <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>
-                    <MenuItem>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            className={classes.button}
-                            endIcon={<CameraAltIcon />}
-                        >
-                            Add Product
-                        </Button>
-                    </MenuItem>
+                        <MenuItem>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                className={classes.button}
+                                endIcon={<CameraAltIcon />}
+                            >
+                                Add Product
+                            </Button>
+                        </MenuItem>
                     </Link>
                     <Link style={{ textDecoration: 'none' }} to={`/Profile`}>
                         <MenuItem>
@@ -121,7 +135,7 @@ const Navbar = () => {
                                 className={classes.button}
                                 endIcon={<PersonIcon />}
                             >
-                                My Profile
+                                {(user != null) ? user.name : ''}
                             </Button>
                         </MenuItem>
                     </Link>
@@ -132,7 +146,7 @@ const Navbar = () => {
                             className={classes.button}
                             onClick={() => LogOut()}
                         >
-                           <LogoutIcon/>
+                            <LogoutIcon />
                         </Button>
                     </MenuItem>
                 </Right>
