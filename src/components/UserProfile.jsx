@@ -169,6 +169,7 @@ const UserProfile = () => {
     const classesImg = useStylesImg();
 
     const token = localStorage.getItem('token')
+    //need to change here
     const user = jwt.decode(localStorage.getItem('token'));
 
     if (!token) {
