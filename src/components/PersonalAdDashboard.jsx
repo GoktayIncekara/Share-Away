@@ -18,7 +18,6 @@ const AdContainer = styled.div`
 const MainTitle=styled.h1`
     color: #333;
     padding: 20px 15px;
-
 `
 const MainHeader =styled.div`
     background-color:  rgb(53, 133, 139, 0.5);
@@ -30,8 +29,7 @@ const AdDashboard =styled.div`
     padding: 40px 90px  0 120px;  
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    
+    justify-content: flex-start;   
 `
 const AddProductConatiner= styled.div`
     height: 200px;

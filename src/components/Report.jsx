@@ -1,4 +1,4 @@
-import { Send } from "@material-ui/icons"
+//import { Send } from "@material-ui/icons"
 import styled from "styled-components"
 import {mobile} from "../responsive"
 import React from 'react';
@@ -45,12 +45,13 @@ const Input = styled.a`
     padding-top: 3px;
     ${mobile({fontSize: "18px", marginTop: "3px"})};
 `
-const Button = styled.button`
+/* const Button = styled.button`
     flex: 1;
     border: none;
     background-color: teal;
     color: white;
-`
+` */
+
 const Report = () => {
   return (
       <Container>

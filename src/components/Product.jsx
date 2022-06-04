@@ -41,10 +41,11 @@ const Circle = styled.div`
     position: absolute;
 
 `
-const Image = styled.img`
+/* const Image = styled.img`
     height: 75%;
     z-index: 2;
-`
+` */
+
 const Icon = styled.div`
     width: 40px;
     height: 40px;
@@ -63,17 +64,21 @@ const Icon = styled.div`
 `
 const Product = ({item}) => {
   return (
-    <Link to = {`/product/${item.id}`}>  
+    
         <Container>
             <Circle />
-            <Image src={item.imgArray[0].img} />
+            {/* <Icon>
+            </Icon> */}
+            {/* <Image src={item.imgArray[0].img} /> */}
             <Info>
                 <Icon>
+                    <Link to={`/products/${item._id}`}>
                     <VisibilityIcon />
+                    </Link>
                 </Icon>
             </Info>
         </Container>
-    </Link>    
+     
   )
 }
 

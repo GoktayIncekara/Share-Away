@@ -6,10 +6,11 @@ import ProductDetail from "../components/ProductDetail"
 import React from 'react';
 
 const Container = styled.div`
-
 `
 
 const Product = () => {
+ 
+
   return (
     <Container>
         <Navbar />

@@ -99,8 +99,6 @@ const Container = styled.div`
     background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
-   
-
 `
 const Wrapper = styled.div`
     display: flex;
@@ -112,7 +110,6 @@ const InfoContainer = styled.div`
     margin: 10px 0 0 0;
     display:flex;
     flex-direction: column;
-
 `
 const ProfileContainer = styled.div`
     display: flex;
@@ -129,15 +126,12 @@ const ConstInfoContainer=styled.div`
     padding-top: 30px;
     padding-left: 30px;
     width: 50 vh;
-    
-
 `
 const ConstInfo = styled.div`
     display: flex;
     align-items: flex-end;
     margin: 15px;
-    padding: 5px;
-    
+    padding: 5px; 
 `
 const ConstTitle = styled.h2`
     color: #35858B;;
@@ -149,7 +143,6 @@ const ConstContent = styled.h3`
     color: #222;
 `
 const PasswordButton = styled.button`
-
     padding-left: 45px;
     border-radius: 10px;
     font-weight: 700;

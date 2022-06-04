@@ -1,7 +1,8 @@
 import styled from "styled-components"
-import { popularProducts } from "../data"
+//import { popularProducts } from "../data"
 import Product from "./Product"
-import React from 'react';
+import axios from "axios"
+import React, { useEffect, useState } from 'react';
 
 const Container = styled.div`
     padding: 20px;
@@ -9,11 +10,47 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `
+const Products = ({category,filters,sort}) => {
+  //console.log({category,filters,sort})
+  const[products,setProducts] = useState([]);
+  const[filteredproducts,setFilteredProducts] = useState([]);
+  
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get( 
+          category ? 'http://localhost:5000/products?category=' + category 
+        : 'http://localhost:5000/products' );
+        console.log(res)
+        setProducts(res.data)
+      } catch (error) {}
+    };
+    getProducts()
+  } , [category])
 
-const Products = () => {
+  useEffect(() => {
+    category && setFilteredProducts( 
+      products.filter((item) => Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )));
+  }, [products, category, filters]);
+
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.createdAt - b.createdAt)
+      );
+    } else  {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.createdAt - a.createdAt)
+      );
+    } 
+
+  }, [sort]);
+
   return (
     <Container>
-        {popularProducts.map((item) => (
+        {/* popularProducts.map((item) */filteredproducts.map((item) => (
             <Product item= {item} key={item.id}/>
         ))}
     </Container>
