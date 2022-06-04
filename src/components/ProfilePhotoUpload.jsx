@@ -6,7 +6,6 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import jwt from 'jsonwebtoken';
 
-
 const Container = styled.div`
     width: 300px;
     border-radius: 10px;
@@ -52,21 +51,21 @@ const UploadButtons =styled.div`
   justify-content: center;
   margin: 10px 0;
 `
-
 const Input = styled.input.attrs({ 
 	type: 'file',
   })`
 
 	display: none;
   `
-  
-  const ProfilePhotoUpload = () => {
+const ProfilePhotoUpload = () => {
+
     const [clicked, setClicked] = useState(false);
-    const [profileImg, setProfileImg] = useState(userPlaceHolder
-      );
+    const [profileImg, setProfileImg] = useState(userPlaceHolder);
+
     const user = jwt.decode(localStorage.getItem('token'));
 
   const imageHandler = (e) => {
+
     setClicked(true);
     const reader = new FileReader();
     reader.onload = () =>{
@@ -76,25 +75,31 @@ const Input = styled.input.attrs({
     }
     reader.readAsDataURL(e.target.files[0])
   };
+
   const handleClick = ()=>{
     localStorage.removeItem('profilePic');
   }
+
   const approvePhoto=(e) =>{
+
       console.log("approved");
       localStorage.setItem("profilePic", (profileImg));
       setProfileImg(localStorage.getItem("profilePic"));
       setClicked(false);
       //upload photo to the database
   }
+
   console.log("LOCALSTROGA PP ppu",localStorage.getItem("profilePic") )
 
   const cancelPhoto=(e) =>{
+
     setClicked(false);
     setProfileImg(userPlaceHolder);
     localStorage.removeItem('profilePic');
-
   }
+
   console.log(clicked);
+
 		return (
 			<Container>
       	<UploadLabel >
@@ -108,14 +113,12 @@ const Input = styled.input.attrs({
 					<Input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
 
         {clicked ? 
-        <UploadButtons >
+        <UploadButtons>
         <CheckCircleOutlineIcon sx={{ fontSize: 50, marginRight: "10px", }} onClick={approvePhoto}/>
         <HighlightOffIcon sx={{ fontSize: 50 }} onClick={cancelPhoto}/>
         </UploadButtons>
         : ""}
 
-
-         
 			</Container>
 		);
 	}

@@ -4,7 +4,9 @@ import Products from "../components/Products"
 import Report from "../components/Report"
 import Footer from "../components/Footer"
 import {mobile} from "../responsive"
-import React from 'react';
+import React , { useState } from 'react';
+import { useLocation } from "react-router-dom"
+import {turkeyData} from "../cityDistrict"
 
 const Container = styled.div`
     
@@ -39,40 +41,59 @@ const Option = styled.option`
 `
 
 const ProductList = () => {
-  return (
+
+    const location = useLocation();
+    const category = location.pathname.split("/")[2]
+    const [filters,setFilters] = useState({})
+    const [sort,setSort] = useState("newest")
+
+    const handleFilters = (e) => {
+        const value = e.target.value;
+        setFilters({
+            ...filters,
+            [e.target.name] : value})
+    } 
+
+    //console.log(filters)
+
+    return (
     <Container>
         <Navbar />
-        <Title>CATEGORY</Title>
+        <Title> {category.toUpperCase()} </Title>
         <FilterContainer>
             <Filter>
                 <FilterText>Filter Products</FilterText>
-                <Select>
-                    <Option disabled selected>City</Option>
+                <Select name = "city" onChange={handleFilters}>
+                    {turkeyData.map((item) => (
+                             <option value={item.il_adi}>{item.il_adi}</option>
+                            ))}
+                    {/* <Option disabled >City</Option>
                     <Option>İstanbul</Option>
                     <Option>İzmir</Option>
                     <Option>Ankara</Option>
                     <Option>Antalya</Option>
-                    <Option>Fethiye</Option>
+                    <Option>Aydın</Option>
                     <Option>Mersin</Option>
                     <Option>Adana</Option>
                     <Option>Kars</Option>
-                    <Option>Sinop</Option>
+                    <Option>Sinop</Option> */}
                 </Select>
-                <Select>
-                    <Option disabled selected>Delivery</Option>
-                    <Option>By hand</Option>
-                    <Option>By post</Option>
+                <Select name = "shipping" onChange={handleFilters}>
+                    <Option disabled >Delivery</Option>
+                    <Option>By-hand</Option>
+                    <Option>By-courier</Option>
+                    <Option>Both</Option>
                 </Select>
             </Filter>
             <Filter>
                 <FilterText>Sort Products</FilterText>
-                <Select>
-                    <Option selected>Newest</Option>
-                    <Option>Oldest</Option>
+                <Select onChange={(e)=> setSort(e.target.value)}>
+                    <Option value ="newest">Newest</Option>
+                    <Option value ="oldest">Oldest</Option>
                 </Select>
             </Filter>
         </FilterContainer>
-        <Products />
+        <Products category = {category} filters ={filters} sort ={sort}/>
         <Report />
         <Footer />
     </Container>

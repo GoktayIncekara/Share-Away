@@ -6,7 +6,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import {turkeyData} from "../cityDistrict"
 import ProductPhotoUpload from "./ProductPhotoUpload";
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -125,7 +125,7 @@ const ProductForm = () => {
     const [districtArr, setDistrictArr] = useState([]);
     const [shipping, setShipping] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const CategoryArr = ["Furniture", "Men Clothing", "Women Clothing", "Technology", "Home", "Books", "Baby and Kid", "Fun", "Travel", "School", "Elderly", "Other"];
+    const CategoryArr = ["Furniture", "Men", "Women", "Technology", "Home", "Books", "Baby-Kid", "Fun", "Travel", "School", "Elderly", "Other"];
 
 
     async function addProduct(e) {
@@ -208,11 +208,11 @@ const ProductForm = () => {
                         </InputBox>
                   
                         <InputBox>
-                        <InputTitle for="ship">Shipping Options</InputTitle>
+                        <InputTitle for="shipping">Shipping Options</InputTitle>
                         <Select name="shipping" id="ship" placeholder='Shipping Options' value={shipping} onChange={(e) => setShipping(e.target.value)}  >
-                             <option value="cargo">By Cargo</option>
-                             <option value="pick-up">Pick up</option>
-                             <option value="both">Both Cargo and Pick-up</option>
+                             <option value="By-courier">By Cargo</option>
+                             <option value="By-hand">Pick up</option>
+                             <option value="Both">Both Cargo and Pick-up</option>
                         </Select>
                         </InputBox>
 
@@ -226,8 +226,8 @@ const ProductForm = () => {
                         </InputBox>
 
                         <InputBox>
-                        <InputTitle for="dist">District</InputTitle>
-                        <Select name="districts" id="dist" placeholder='District' value={district} onChange={(e) => setDistrict(e.target.value)}  >
+                        <InputTitle for="district">District</InputTitle>
+                        <Select name="district" id="dist" placeholder='District' value={district} onChange={(e) => setDistrict(e.target.value)}  >
                             {districtArr.map((item) => (
                                 <option value={item.ilce_adi}>{item.ilce_adi}</option>
                                 ))}

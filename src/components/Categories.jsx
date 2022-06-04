@@ -4,9 +4,7 @@ import CategoryItem from "./CategoryItem"
 import {mobile} from "../responsive"
 import React from 'react';
 
-
-const Container = styled.div`
-  
+const Container = styled.div` 
 `
 const CategoriesContainer = styled.div`
     display: flex;
@@ -34,7 +32,6 @@ const Categories = () => {
                     <CategoryItem item={item} key={item.id}/>
             ))}
         </CategoriesContainer>
-        
     </Container>
   )
 }

@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
 import Footer from "../components/Footer"
 import Report from '../components/Report'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useEffect } from 'react'
 import jwt from 'jsonwebtoken'
 

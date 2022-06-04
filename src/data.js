@@ -32,12 +32,12 @@ export const sliderItems = [
     {
       id: 2,
       img: "https://media.istockphoto.com/photos/handsome-man-shopping-for-new-clothes-in-store-picture-id1189091313?k=20&m=1189091313&s=612x612&w=0&h=8zBj4HJMAaCLzmRKfoHvfMueqa7FFPA3zHttnoFnp9Y=",
-      title: "Men Clothing",
+      title: "Men",
     },
     {
       id: 3,
       img: "https://media.gettyimages.com/photos/rear-view-of-a-woman-choosing-a-dress-in-a-clothing-store-picture-idstk319165rkn",
-      title: "Women Clothing",
+      title: "Women",
     },
     {
       id: 4,
@@ -57,7 +57,7 @@ export const sliderItems = [
     {
       id: 7,
       img: "https://www.bellybelly.com.au/wp-content/uploads/2013/10/when-do-babies-start-talking.jpg",
-      title: "Baby and Kid",
+      title: "Baby-Kid",
     },
     {
       id: 8,

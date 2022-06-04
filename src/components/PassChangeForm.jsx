@@ -128,7 +128,7 @@ function PassChangeForm(props) {
             alert("Passwords do not match!")
             resetForm()
         }
-        else if (newPass == oldPass) {
+        else if (newPass === oldPass) {
             alert("New password can not be same as the old password!")
             resetForm()
         }
