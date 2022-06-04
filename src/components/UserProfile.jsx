@@ -164,13 +164,13 @@ const PasswordButton = styled.button`
   }
 `
 const UserProfile = () => {
+
     const navigate = useNavigate();
     const classesImg = useStylesImg();
 
-    
-
     const token = localStorage.getItem('token')
     const user = jwt.decode(localStorage.getItem('token'));
+
     if (!token) {
         navigate('/login', { replace: true })
     }
@@ -180,12 +180,11 @@ const UserProfile = () => {
         console.log(user)
     }
 
-
     const [passChangeForm, setPassChangeForm] = useState(false);
 
     const [profilePic, setProfilePic] = useState('');
 
-   
+
     const imageHandler = (e) => {
 
         const reader = new FileReader();
@@ -247,7 +246,7 @@ const UserProfile = () => {
                     </ProfileContainer>
                 </InfoContainer>
 
-                <PersonalAdDashboard />
+                <PersonalAdDashboard username = {user.username}/>
 
             </Wrapper>
         </Container>

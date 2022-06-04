@@ -1,9 +1,10 @@
 import styled from "styled-components"
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import { Link } from "react-router-dom"
 import { popularProducts } from "../data"
 import  Product from './Product';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import axios from "axios"
 
 const Wrapper= styled.div`
 `
@@ -46,8 +47,22 @@ const IconCaption= styled.h2`
     text-decoration: underline;
 `
 
-const PersonalAdDashboard = () => {
-  return (
+const PersonalAdDashboard = ({username}) => {
+
+    const[products,setProducts] = useState([]);
+
+    useEffect(() => {
+        const getProducts = async () => {
+          try {
+            const res = await axios.get( 'http://localhost:5000/products?username=' + username);
+            console.log(res)
+            setProducts(res.data)
+          } catch (error) {}
+        };
+        getProducts()
+      } , [username])
+
+    return (
     <Wrapper>
     <MainHeader>
     <MainTitle>Your Products</MainTitle>
@@ -55,7 +70,7 @@ const PersonalAdDashboard = () => {
 
     <AdContainer>
         <AdDashboard>
-            {popularProducts.map((item) => (
+            {products.map((item) => (
                     <Product item= {item} key={item.id}/>
                 ))} 
         </AdDashboard>
