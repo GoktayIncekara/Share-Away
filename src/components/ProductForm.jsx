@@ -116,7 +116,7 @@ const ProductForm = () => {
     const classes = useStyles();
     const navigate = useNavigate();
 
-    const [productImage, setImage] = useState('');
+    //const [productImage, setImage] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');

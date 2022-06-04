@@ -28,10 +28,13 @@ const Wrapperuser =styled.div`
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
     ${mobile({flexDirection: "column"})};
     `
+    const SubTitle= styled.h3`
+    color:   rgb(53, 133, 139); ;  
+`
 
 const UserShortInfo = ({username}) =>{
 
-    const [user, setUser] = useState({});
+    /* const [user, setUser] = useState({});
 
     useEffect(() => {
         const getUser = async () => {
@@ -41,17 +44,17 @@ const UserShortInfo = ({username}) =>{
           } catch (error) {}
         };
         getUser()
-    } , [username]) 
+    } , [username])  */
     
-    console.log(user)
 
     return(
         <Wrapperuser>
             <Container>
                 {/* <Avatar src={currentUser.profileImg}/> */}
-                {/* <NameLabel>
-                    {user.name} {user.surname}
-                </NameLabel> */}
+                
+                <SubTitle>Shared by:</SubTitle>
+                <NameLabel>{username} </NameLabel>
+                
             </Container>
         </Wrapperuser>
     )

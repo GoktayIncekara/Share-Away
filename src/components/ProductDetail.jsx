@@ -116,13 +116,13 @@ const ProductDetail = () =>{
         };
         getProduct()
 
-        const getUser = async () => {
+        /* const getUser = async () => {
             try {
               const res = await axios.get( 'http://localhost:5000/user/' + product.username);
               setUser(res.data)
             } catch (error) {}
           };
-        getUser()
+        getUser() */
         
     } , [id])
 
@@ -153,7 +153,7 @@ const ProductDetail = () =>{
             </DescrContainer>
 
             {<UserContainer>
-                {/* <UserShortInfo username = {product.username}/>  */}
+                <UserShortInfo username = {product.username}/>  
                 <Button
                 variant="contained"
                 size="large"
