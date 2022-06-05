@@ -10,6 +10,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { SettingsBackupRestoreRounded } from "@mui/icons-material";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +56,7 @@ const ImgContainer = styled.div`
 `
 const Image = styled.img`
     height: 25vw;
-    width: 25vw;
+    width: 22vw;
     align-items: center;
     ${mobile({ height: "30vh" })};
 `
@@ -94,14 +95,23 @@ const SubTitle = styled.h3`
     color:   rgb(53, 133, 139); ;  
 `
 
+const Img = styled.img`
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    margin: 15px 20px 0 0;
+  
+  `
+
 const ProductDetail = () => {
 
+    window.scrollTo(0, 0);
     const location = useLocation();
     const classes = useStyles();
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState({});
-    //const [user, setUser] = useState({});
-
+    const [user, setUser] = useState({});
+    
     /*
      useEffect(() => {
         const getProduct = async () => {
@@ -125,7 +135,10 @@ const ProductDetail = () => {
     */
     const getUsers = async () => {
         const res = await axios.get('http://localhost:5000/products/' + id);
-        setProduct(res.data)
+        setProduct(res.data.product)
+        setUser(res.data.user)
+        //console.log("got user pic path:" + user.profilePic)
+        //console.log("got product:" + product)
     };
 
     useEffect(() => {
@@ -138,16 +151,15 @@ const ProductDetail = () => {
 
     const crDate = String(product.createdAt).split('T')[0]
     const emailtosend = "mailto:" + product.email
-
+ 
     return (
         <Wrapper>
             <ImgContainer>
                 {/* <ProductSlider product={id}/> */}
-                 <Image src={require('../pictures/' + localStorage.getItem('currentPhoto'))} alt="" id="img" /> 
+                <Image src={require('../pictures/' + localStorage.getItem('currentPhoto'))} alt="" id="img" />
             </ImgContainer>
             <InfoContainer>
                 <Title>{/* {currentItem.name} */} {product.title}</Title>
-
                 <IconStyle> <LocationOnIcon className={classes.icon} />
                     Location: {product.district}, {product.city}</IconStyle>
                 <IconStyle> <CalendarTodayIcon className={classes.icon} /> Published Day: {crDate} </IconStyle>
@@ -156,21 +168,22 @@ const ProductDetail = () => {
                 </IconStyle>
 
                 <DescrContainer>
-                <SubTitle>Description:</SubTitle>
-                <Desc>{product.description}</Desc>
+                    <SubTitle>Description:</SubTitle>
+                    <Desc>{product.description}</Desc>
                 </DescrContainer>
 
-            {<UserContainer>
-                <UserShortInfo username = {product.username}/>  
-                <Button href = {emailtosend}
-                variant="contained"
-                size="large"
-                className={classes.button}
-                endIcon={<MailOutlineIcon />}
-                >Send Message</Button>
-            </UserContainer>}  
-            
-        </InfoContainer>
+                {<UserContainer>
+
+                    <UserShortInfo username={product.username} />
+                    <Button href={emailtosend}
+                        variant="contained"
+                        size="large"
+                        className={classes.button}
+                        endIcon={<MailOutlineIcon />}
+                    >Send Message</Button>
+                </UserContainer>}
+
+            </InfoContainer>
         </Wrapper>
     )
 }

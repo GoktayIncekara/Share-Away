@@ -168,7 +168,7 @@ const PasswordButton = styled.button`
   }
 `
 const UserProfile = () => {
-
+    window.scrollTo(0, 0);
     const navigate = useNavigate();
     const classesImg = useStylesImg();
 
@@ -186,6 +186,7 @@ const UserProfile = () => {
     const [passChangeForm, setPassChangeForm] = useState(false);
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage2, setErrorMessage2] = useState('');
     const imageHandler = (e) => {
 
         const reader = new FileReader();
@@ -194,6 +195,7 @@ const UserProfile = () => {
             if (reader.readyState === 2) {
                 setProfilePic(e.target.files[0])
                 setErrorMessage("Ready to upload: Click ✓ to Complete!")
+                setErrorMessage2("Or Click X to Discard!")
             }
         }
         if (e.target.files[0]) {
@@ -203,21 +205,38 @@ const UserProfile = () => {
 
     async function ChangePicture(e) {
 
-        const formData = new FormData();
-        formData.append('username', user.username)
-        formData.append('profilePic', profilePic)
+        if (profilePic != '') {
+            const formData = new FormData();
+            formData.append('username', user.username)
+            formData.append('profilePic', profilePic)
 
-        const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
+            const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
 
-        if (response.data.status == 'ok') {
-            localStorage.removeItem('token')
-            localStorage.clear()
-            localStorage.setItem('token', response.data.user)
+            if (response.data.status == 'ok') {
+                localStorage.removeItem('token')
+                localStorage.clear()
+                localStorage.setItem('token', response.data.user)
+                window.location.href = '/profile'
+            }
+            if (response.data.status == 'errorPPupdate') {
+                alert("Profile picture update procedure interrupted!")
+            }
+        }
+        else{
+            alert("No image is chosen!")
             window.location.href = '/profile'
         }
-        if (response.data.status == 'errorPPupdate') {
-            alert("Profile picture update procedure interrupted!")
+
+    }
+
+    const RemovePicture = () => {
+        if (profilePic != '') {
+            setProfilePic(user.profilePic)
+            setErrorMessage("The image is discarded!")
+            setErrorMessage2("")
+            
         }
+
     }
 
     return (
@@ -233,8 +252,10 @@ const UserProfile = () => {
 
                                     </ImageUpload>
                                     <Button type="submit" className={classesImg.button}>✔</Button>
+                                    <Button type="reset" onClick={() => RemovePicture()} className={classesImg.button}>X</Button>
                                 </UploadLabel>
                                 <Error> {errorMessage} </Error>
+                                <Error> {errorMessage2} </Error>
                                 <ImgHolder>
                                     <Img src={require('../pictures/' + user.profilePic)} alt="" id="img" className="img" />
                                 </ImgHolder>

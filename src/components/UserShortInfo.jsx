@@ -19,7 +19,7 @@ const NameLabel = styled.h2`
     margin: 7px 0 0 0;
 `
 const Wrapperuser =styled.div`
-    padding: 2vh 1vh 3vh 1vh;
+    padding: 4vh 1vh 5vh 1vh;
     margin: 8vh 0 1vh;
     display:flex;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
@@ -29,6 +29,13 @@ const SubTitle= styled.h3`
     margin: 10px 0 0 0;
     color:   rgb(53, 133, 139); ;  
 `
+const Img = styled.img`
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    margin: 15px 20px 0 0;
+  
+  `
 
 const Empty = styled.span`
     margin: 0 0 0 20px;
@@ -54,7 +61,7 @@ const UserShortInfo = ({username}) =>{
         <Wrapperuser>
             <Container>
                 {/* <Avatar src={currentUser.profileImg}/> */}
-                
+                <Img src={require('../pictures/user.png')} alt="" id="img" className="img" />
                 <SubTitle>Shared by: </SubTitle>
                 <Empty> </Empty>
                 <NameLabel>{username} </NameLabel>

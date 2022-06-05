@@ -10,6 +10,7 @@ const Container = styled.div`
     justify-content: space-between;
 `
 const Products = ({category,filters,sort}) => {
+  window.scrollTo(0, 0);
   //console.log({category,filters,sort})
   const[products,setProducts] = useState([]);
   const[filteredproducts,setFilteredProducts] = useState([]);

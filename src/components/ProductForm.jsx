@@ -139,17 +139,16 @@ const InputTitle = styled.label`
 const InputBox = styled.div`
     display:flex;
     flex-direction: column;
-    align-items: flex-start;
     margin: 20px 0 10px 0;
-
+    
 `
 const Input = styled.input`
     flex: 1;
-    width: 85%;
-    padding: 5px;
+    width: 100%;
     padding: 10px;
     border: 2px solid  #35858B;
     border-radius: 10px;
+    height: 50px;
 `
 const Select = styled.select`
     flex: 1;
@@ -166,10 +165,13 @@ const TextArea = styled.textarea`
     padding: 10px;
     border: 2px solid  #35858B;
     border-radius: 10px;
+    resize: none;
+    line-height:20px;
+    height: 100px;
 `
 
 const ProductForm = () => {
-
+    window.scrollTo(0, 0);
     const classes = useStyles();
     const navigate = useNavigate();
 
@@ -262,16 +264,12 @@ const ProductForm = () => {
                                         <Img src={currentImg} alt="" id="img" className="img" />
                                     </ImgHolder>
                                     <InputImg type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
-
                                 </div>
+                                <UploadLabel >
+                                    <ImageUpload htmlFor="input" >
+                                        <h4>Choose Your Product Photo</h4>	<CameraAltIcon sx={{ margin: "5px", fontSize: 30 }} /></ImageUpload>
+                                </UploadLabel>
 
-                                <Wrapper>
-                                    <UploadLabel >
-                                        <ImageUpload htmlFor="input" >
-                                            <h4>Choose Your Product Photo</h4>	<CameraAltIcon sx={{ margin: "5px", fontSize: 30 }} /></ImageUpload>
-                                    </UploadLabel>
-
-                                </Wrapper>
                             </UploadContainer>
 
                         </ContainerPhoto>
