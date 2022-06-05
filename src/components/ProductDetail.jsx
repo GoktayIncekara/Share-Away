@@ -59,7 +59,6 @@ const Image = styled.img`
     align-items: center;
     ${mobile({ height: "30vh" })};
 `
-
 const InfoContainer = styled.div`
     display:flex;
     flex-direction: column;
@@ -75,13 +74,25 @@ const Title = styled.h1`
     padding-bottom: 30px;
     font-size: 50px;
 `
-
-
 const IconStyle = styled.p`
     color: gray;
     display: flex;
 `
 const UserContainer = styled.div``
+
+const DescrContainer = styled.div`
+    margin-top: 5px;
+    background-color:  rgb(53, 133, 139, 0.2); 
+    border-radius: 10px;
+    padding: 10px;
+`
+
+const Desc = styled.p`
+    margin: 5px 0px;
+`
+const SubTitle = styled.h3`
+    color:   rgb(53, 133, 139); ;  
+`
 
 const ProductDetail = () => {
 
@@ -143,6 +154,11 @@ const ProductDetail = () => {
 
                 <IconStyle> <LocalShippingIcon className={classes.icon} /> Shipping Options:  {product.shipping}
                 </IconStyle>
+
+                <DescrContainer>
+                <SubTitle>Description:</SubTitle>
+                <Desc>{product.description}</Desc>
+                </DescrContainer>
 
             {<UserContainer>
                 <UserShortInfo username = {product.username}/>  
