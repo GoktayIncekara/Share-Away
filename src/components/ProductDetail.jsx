@@ -174,7 +174,7 @@ const ProductDetail = () => {
 
                 {<UserContainer>
 
-                    <UserShortInfo username={product.username} />
+                    <UserShortInfo username={user.name + " " + user.surname}/>
                     <Button href={emailtosend}
                         variant="contained"
                         size="large"

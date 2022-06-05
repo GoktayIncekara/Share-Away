@@ -15,8 +15,8 @@ const Container = styled.div`
     justifyContent: flex-start;
     align-items: center;
 `
-const NameLabel = styled.h2`
-    margin: 7px 0 0 0;
+const NameLabel = styled.h3`
+    margin: 9px 0 0 0;
 `
 const Wrapperuser =styled.div`
     padding: 4vh 1vh 5vh 1vh;
@@ -56,7 +56,7 @@ const UserShortInfo = ({username}) =>{
     } , [username])  
     
     */
-    
+
     return(
         <Wrapperuser>
             <Container>
