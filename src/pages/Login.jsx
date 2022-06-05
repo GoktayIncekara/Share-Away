@@ -121,31 +121,48 @@ function Login() {
     async function loginUser(event) {
         event.preventDefault()
 
-        const response = await fetch('http://localhost:5000/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username,
-                password,
-            }),
-        })
-
-        const data = await response.json()
-
-        if (data.status === 'errorUserNotFound') {
-            setErrorMessage("Username is not registered! Please try again!")
+        if (username.length < 1) {
+            setErrorMessage("Please enter an username!")
+            resetForm()
         }
+        else if (password.length < 1) {
+            setErrorMessage(" Please enter a password!")
+            resetForm()
+        }
+
         else {
-            if (data.status === 'ok') {
-                localStorage.setItem('token', data.user)
-                // alert('Login successful')
-                window.location.href = '/homepage'
-            } if (data.status === 'errorPasswordDoNotMatch') {
-                setErrorMessage("Username and/or Password do not match! Please try again!")
+            const response = await fetch('http://localhost:5000/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            })
+
+            const data = await response.json()
+
+            if (data.status === 'errorUserNotFound') {
+                setErrorMessage("Username is wrong or not registered ! Please try again!")
+                resetForm()
+            }
+            else {
+                if (data.status === 'ok') {
+                    localStorage.setItem('token', data.user)
+                    window.location.href = '/homepage'
+                } if (data.status === 'errorPasswordDoNotMatch') {
+                    setErrorMessage("Username and password do not match! Please try again!")
+                    resetForm()
+                }
             }
         }
+    }
+
+    const resetForm = () => {
+        setUsername('');
+        setPassword('');
     }
 
     return (
@@ -159,7 +176,7 @@ function Login() {
                     <Form onSubmit={loginUser}>
                         <Input placeholder="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                         <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <Error> {errorMessage} </Error>
+                        <Error> {errorMessage} <br/> </Error>
                         <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
                         <HaveAccount>
                             Not Registered?<Link to={`/`} style={{ textDecoration: 'none' }} > Create New Account</Link>

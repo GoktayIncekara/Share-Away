@@ -4,9 +4,6 @@ import { useState} from "react";
 import { Button, makeStyles } from '@material-ui/core';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 
-import PositiveNotification from './PositiveNotification';
-import NegativeNotification from './NegativeNotification';
-
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -108,9 +105,6 @@ function PassChangeForm(props) {
     
     const classes = useStyles();
 
-    const [added, setAdded] = useState(false);
-    const [notAdded, setNotAdded] = useState(false);
-
     const [oldPass, setOldPass] = useState('');
     const [newPass, setNewPass] = useState('');
     const [newPassAgain, setNewPassAgain] = useState('');
@@ -123,20 +117,33 @@ function PassChangeForm(props) {
     }
 
     async function handleSubmit (event)  {
-        
         event.preventDefault()
-        if (newPass !== newPassAgain) {
-            alert("Passwords do not match!")
+
+        if (oldPass.length < 1) {
+            setErrorMessage(" Please enter a password!")
+            resetForm()
+        }
+        else if (newPass.length < 1) {
+            setErrorMessage(" Please enter a new password!")
+            resetForm()
+        }
+        else if(newPass.length > 1 && newPass.length < 6){
+            setErrorMessage("New password should be minimum 6 characters long! ")
+            resetForm()
+        }
+        else if(newPass.includes(" ")){
+            setErrorMessage("Whitespace is not allowed in passwords!")
             resetForm()
         }
         else if (newPass === oldPass) {
-            alert("New password can not be same as the old password!")
+            setErrorMessage("New password can not be same as the old password!")
             resetForm()
         }
-        else if(newPass.length<6){
-            alert("Password should be minimum 6 characters long!")
+        else if (newPass !== newPassAgain) {
+            setErrorMessage("New passwords do not match!")
             resetForm()
         }
+        
 
         else{
             const response = await fetch('http://localhost:5000/user/changePassword', {
@@ -161,8 +168,12 @@ function PassChangeForm(props) {
                 resetForm();
             }
             if (data.status === 'ok') {
-                resetForm();
-                window.location.href = '/login';        
+                setTimeout(
+                    setErrorMessage("Password is updated!You are being redirected to the login page.")
+                    , 7000
+                )
+                resetForm();    
+                window.location.href = '/login';    
         }}
         
     }
@@ -200,12 +211,10 @@ function PassChangeForm(props) {
                         <Input  required type="password" value={newPassAgain} onChange={(e) => setNewPassAgain(e.target.value)} />
                         </InputBox>
                         
-                        <Error> {errorMessage} </Error> 
+                        <Error> {errorMessage} <br/> </Error> 
 
                         <Button type="submit" className={classes.button} sx={{ width: 'auto' }} onClick={handleSubmit}>Change Password</Button>
 
-                        <PositiveNotification trigger={added} setTrigger={setAdded} message="hey"></PositiveNotification>
-                        <NegativeNotification trigger={notAdded} setTrigger={setNotAdded} message="nbr"></NegativeNotification>
                     </Form>
 
 

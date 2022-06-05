@@ -206,6 +206,16 @@ const Register = () => {
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    function validateUserName(username){
+        var usernameRegex = /^[a-zA-Z0-9_\.]+$/;
+        return usernameRegex.test(username);
+    }
+
+    function validateName(name){
+        var usernameRegex = /^[a-zA-Z\.]+$/;
+        return usernameRegex.test(name);
+    }
+
     const imageHandler = (e) => {
 
         const reader = new FileReader();
@@ -250,6 +260,21 @@ const Register = () => {
         else if (surname.length < 3) {
             alert("Surname should be minimum 2 characters long!")
             resetPassword()
+        }
+        else if (!validateUserName(username)){
+            setErrorMessage("The username can only contain letters, numbers, undercores and full stops.")
+            setUsername('')
+            resetPassword()
+        }
+        else if (!validateName(name) || !validateName(surname)){
+            setErrorMessage("The name and surname can only contain letters.")
+            setName('')
+            setSurname('')
+            resetPassword()
+        }
+        else if(password.includes(" ")){
+            setErrorMessage("Whitespace is not allowed in passwords!")
+            resetForm()
         }
         else {
 
@@ -322,21 +347,17 @@ const Register = () => {
                             <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
                         </ContainerImg>
 
+                        <Error> {errorMessage} <br/></Error>
+
                         <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
-
                         <Input placeholder="Last Name" type="text" required value={surname} onChange={(e) => setSurname(e.target.value)} />
-
                         <Input placeholder="Username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)} />
-
                         <Input placeholder="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-
                         <Input placeholder="Password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-
                         <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-
                         <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
                         </Agreement>
-                        <Error> {errorMessage} </Error>
+                        
                         <ButtonWrapper>
                             <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>
                             <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
