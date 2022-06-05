@@ -205,7 +205,15 @@ const UserProfile = () => {
 
     async function ChangePicture(e) {
 
-        if (profilePic != '') {
+        if (profilePic == '') {
+            setErrorMessage("No image file is chosen!")
+            setTimeout(
+                setErrorMessage2("")
+                , 3500
+            )
+            window.location.href = '/profile'
+        }
+        else {
             const formData = new FormData();
             formData.append('username', user.username)
             formData.append('profilePic', profilePic)
@@ -215,26 +223,32 @@ const UserProfile = () => {
             if (response.data.status == 'ok') {
                 localStorage.removeItem('token')
                 localStorage.clear()
-                localStorage.setItem('token', response.data.user)
-                window.location.href = '/profile'
+                setTimeout(
+                    localStorage.setItem('token', response.data.user)
+                    , 80000
+                )
+                window.location.href = '/homepage'
             }
             if (response.data.status == 'errorPPupdate') {
                 alert("Profile picture update procedure interrupted!")
             }
         }
-        else{
-            alert("No image is chosen!")
-            window.location.href = '/profile'
-        }
+
+
+
 
     }
 
     const RemovePicture = () => {
         if (profilePic != '') {
-            setProfilePic(user.profilePic)
             setErrorMessage("The image is discarded!")
-            setErrorMessage2("")
-            
+
+            setTimeout(
+                setErrorMessage2("")
+                , 3500
+            )
+            window.location.href = '/profile'
+
         }
 
     }
