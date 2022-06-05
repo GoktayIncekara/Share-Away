@@ -105,6 +105,7 @@ const Error = styled.span`
     ` 
 
 function PassChangeForm(props) {
+    
     const classes = useStyles();
 
     const [added, setAdded] = useState(false);

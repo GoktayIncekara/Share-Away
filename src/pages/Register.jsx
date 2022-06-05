@@ -4,13 +4,10 @@ import styled from "styled-components"
 import { mobile } from "../responsive"
 import { Button, makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from "react-router-dom";
-
 import ProfilePlaceHolder from '../pictures/user.png'
 import axios from 'axios';
-
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
-//------------------------------------
 const useStylesImg = makeStyles((theme) => ({
     button: {
         backgroundColor: "#072227",
@@ -81,15 +78,12 @@ const Img = styled.img`
   
   `
 
-
 const InputImg = styled.input.attrs({
     type: 'file',
 })`
   
       display: none;
     `
-
-//---------------------------
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -236,19 +230,10 @@ const Register = () => {
     async function handleRegister(e) {
 
         e.preventDefault()
-        /* if (localStorage.hasOwnProperty("profilePic") != null) {
-            setProfilePic(localStorage.getItem("profilePic"))
-            //console.log(profilePic)
-        }
-        if (localStorage.hasOwnProperty("profilePic") === null) {
-            setProfilePic(ProfilePlaceHolder)
-            //console.log(profilePic)
-        } */
 
         if (password !== confirmPassword) {
             alert("Passwords do not match!")
             resetPassword()
-
         }
         else if (password.length < 6) {
             alert("Password should be minimum 6 characters long!")
@@ -277,42 +262,10 @@ const Register = () => {
             formData.append('password', password);
             formData.append('profilePic', profilePic);
 
-            /* const response = await fetch('http://localhost:5000/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    name,
-                    surname,
-                    email,
-                    password,
-                    profilePic,
-                }),
-            }); */
-
             const response = await axios.post('http://localhost:5000/user/register', formData)
 
-
-            /* const response = await fetch('http://localhost:5000/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: formData,
-            }); */
-
             console.log("from frontend: " + response.data.status + " end of frontend")
-            /* const data = await response.json()
 
-            if (data.status === 'ok') {
-                resetForm();
-                navigate('/login');
-            }
-            if (data.status === 'Error') {
-                setErrorMessage("Email or username is already used! Please try again!")
-            } */
             if (response.data.status == 'ok') {
                 setName('');
                 setUsername('');
@@ -343,10 +296,7 @@ const Register = () => {
         setConfirmPassword('');
         setProfilePic(ProfilePlaceHolder);
     }
-
-
-
-
+    
     return (
         <main>
             <Container>
@@ -354,11 +304,7 @@ const Register = () => {
                     <Brand>SHARE AWAY</Brand>
                 </BrandWrapper>
                 <Wrapper>
-
-
                     <Title> CREATE AN ACCOUNT</Title>
-
-
                     <Form onSubmit={handleRegister} encType='multipart/form-data'>
 
                         <ContainerImg>

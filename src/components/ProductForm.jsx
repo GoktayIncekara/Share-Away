@@ -8,9 +8,7 @@ import { turkeyData } from "../cityDistrict"
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import ProductPlaceHolder from '../pictures/product.png'
 import axios from 'axios';
-//const jwt = require('jsonwebtoken');
 
-//-----
 
 const ContainerPhoto = styled.div`
     width: 100%;
@@ -64,13 +62,6 @@ const InputImg = styled.input.attrs({
 
 	display: none;
   `
-
-const WrapperPhoto = styled.div``
-
-
-
-//------
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -182,7 +173,6 @@ const ProductForm = () => {
     const classes = useStyles();
     const navigate = useNavigate();
 
-    //const [productImage, setImage] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -199,7 +189,6 @@ const ProductForm = () => {
     const imageHandler = (e) => {
 
         const reader = new FileReader();
-
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setCurrentImg(reader.result)
@@ -219,10 +208,7 @@ const ProductForm = () => {
             alert("Title should be at least 3 characters long!")
             setTitle('')
         }
-
         else {
-
-
             const formData = new FormData();
 
             formData.append('title', title);
@@ -233,38 +219,9 @@ const ProductForm = () => {
             formData.append('district', district);
             formData.append('productPicture', productPicture);
             formData.append('token', localStorage.getItem('token'))
-            console.log("frontend token: " + localStorage.getItem('token'))
-            console.log('frontend productpic: ' + productPicture)
-
-            /* const response = await fetch('http://localhost:5000/user/addProduct', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-access-token': localStorage.getItem('token'),
-                },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    category,
-                    shipping,
-                    city,
-                    district,
-                }),
-            }) */
-
-            /* const response = await fetch('http://localhost:5000/user/addProduct', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-access-token': localStorage.getItem('token'),
-                },
-                body: formData
-            }) */
-
 
             const response = await axios.post('http://localhost:5000/user/addProduct', formData)
 
-            //const data = await response.json()
             if (response.data.status === 'ok') {
                 resetForm();
                 navigate('/Profile');

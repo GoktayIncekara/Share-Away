@@ -3,19 +3,14 @@ import { mobile } from "../responsive"
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react';
-//import { useParams } from "react-router-dom";
-//import { popularProducts } from "../data"
-import ProductSlider from './ProductSlider'
 import UserShortInfo from "./UserShortInfo";
-//import {users} from "../data"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import jwt from 'jsonwebtoken'
-import { useNavigate } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -80,24 +75,13 @@ const Title = styled.h1`
     padding-bottom: 30px;
     font-size: 50px;
 `
-const Desc = styled.p`
-    margin: 5px 0px;
-`
-const SubTitle = styled.h3`
-    color:   rgb(53, 133, 139); ;  
-`
+
+
 const IconStyle = styled.p`
     color: gray;
     display: flex;
 `
 const UserContainer = styled.div``
-
-const DescrContainer = styled.div`
-    margin-top: 5px;
-    background-color:  rgb(53, 133, 139, 0.2); 
-    border-radius: 10px;
-    padding: 10px;
-`
 
 const ProductDetail = () => {
 
@@ -105,7 +89,7 @@ const ProductDetail = () => {
     const classes = useStyles();
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState({});
-    const [user, setUser] = useState({});
+    //const [user, setUser] = useState({});
 
     /*
      useEffect(() => {
@@ -117,7 +101,7 @@ const ProductDetail = () => {
         };
         getProduct()
 
-        /* const getUser = async () => {
+        const getUser = async () => {
             try {
               const res = await axios.get( 'http://localhost:5000/user/' + product.username);
               setUser(res.data)
@@ -126,6 +110,7 @@ const ProductDetail = () => {
         getUser() 
 
     }, []) 
+
     */
     const getUsers = async () => {
         const res = await axios.get('http://localhost:5000/products/' + id);
@@ -137,37 +122,12 @@ const ProductDetail = () => {
     }, [id]);
 
 
+    //console.log(product)
+    //console.log(user)
 
-
-
-    /* const getUser = async () => {
-        try {
-          const res = await axios.get( 'http://localhost:5000/user/' + product.username);
-          setUser(res.data)
-        } catch (error) {}
-      };
-    getUser() */
-
-
-    /* const ppath = '../pictures/user.png'; 
-    try{
-        const ppath = '../pictures/' + product.productPicture;
-    }
-    catch(error){
-        
-    } */
-
-
-
-    console.log(product)
-    console.log(user)
     const crDate = String(product.createdAt).split('T')[0]
-    console.log("product picture:" + product.productPicture)
-    console.log(crDate)
-
     const emailtosend = "mailto:" + product.email
 
-    console.log('from local:' + localStorage.getItem('currentPhoto'))
     return (
         <Wrapper>
             <ImgContainer>

@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import jwt from 'jsonwebtoken';
 import PersonalAdDashboard from './PersonalAdDashboard';
 import PassChangeForm from './PassChangeForm';
 import { Button, makeStyles } from '@material-ui/core';
-import ProfilePlaceHolder from '../pictures/445af1e4-f1c5-4f71-8cbf-597c907b3f5f-1654335541504.jpg'
 import axios from 'axios';
 
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
@@ -35,8 +34,6 @@ const useStylesImg = makeStyles((theme) => ({
     }
 
 }));
-
-
 
 const ContainerImg = styled.div`
     width: 25vw;
@@ -89,8 +86,6 @@ const InputImg = styled.input.attrs({
   
       display: none;
     `
-
-//---------------------------
 
 
 const Container = styled.div`
@@ -178,7 +173,6 @@ const UserProfile = () => {
     const classesImg = useStylesImg();
 
     const token = localStorage.getItem('token')
-    //need to change here
     const user = jwt.decode(localStorage.getItem('token'));
 
     if (!token) {
@@ -186,12 +180,10 @@ const UserProfile = () => {
     }
     else {
         const user = jwt.decode(token)
-
         console.log(user)
     }
 
     const [passChangeForm, setPassChangeForm] = useState(false);
-
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const imageHandler = (e) => {
@@ -217,7 +209,6 @@ const UserProfile = () => {
 
         const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
 
-
         if (response.data.status == 'ok') {
             localStorage.removeItem('token')
             localStorage.clear()
@@ -227,10 +218,7 @@ const UserProfile = () => {
         if (response.data.status == 'errorPPupdate') {
             alert("Profile picture update procedure interrupted!")
         }
-
-
     }
-
 
     return (
         <Container>
@@ -258,9 +246,6 @@ const UserProfile = () => {
                             <ConstInfo><ConstTitle>Name: </ConstTitle><ConstContent>{user.name} {user.surname}</ConstContent></ConstInfo>
                             <ConstInfo><ConstTitle>Username: </ConstTitle><ConstContent>{user.username}</ConstContent></ConstInfo>
                             <ConstInfo><ConstTitle>E-mail: </ConstTitle><ConstContent>{user.email}</ConstContent></ConstInfo>
-
-
-
                             <PasswordButton onClick={() => setPassChangeForm(true)}>Change Password <EditIcon style={{ paddingLeft: "5px" }} /></PasswordButton>
                             <PassChangeForm trigger={passChangeForm} setTrigger={setPassChangeForm} />
                         </ConstInfoContainer>

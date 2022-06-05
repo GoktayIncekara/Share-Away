@@ -1,19 +1,15 @@
 import styled from "styled-components"
-// import {users} from "../data"
 import React from 'react';
 import {mobile} from "../responsive"
-import jwt from 'jsonwebtoken';
-import axios from "axios";
-import { useState , useEffect } from "react";
 
-const Avatar = styled.img`
+/* const Avatar = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: white;
     margin: 10px;
     z-index: 2;
-`
+` */
 const Container = styled.div`
     display:flex;
     justifyContent: flex-start;
@@ -34,7 +30,8 @@ const Wrapperuser =styled.div`
 
 const UserShortInfo = ({username}) =>{
 
-    /* const [user, setUser] = useState({});
+    /* 
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         const getUser = async () => {
@@ -44,9 +41,10 @@ const UserShortInfo = ({username}) =>{
           } catch (error) {}
         };
         getUser()
-    } , [username])  */
+    } , [username])  
     
-
+    */
+    
     return(
         <Wrapperuser>
             <Container>

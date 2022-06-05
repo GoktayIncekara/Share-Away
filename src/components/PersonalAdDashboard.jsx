@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
-import { popularProducts } from "../data"
 import Product from './Product';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import axios from "axios"

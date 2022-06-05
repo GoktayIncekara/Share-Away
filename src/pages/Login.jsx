@@ -146,7 +146,6 @@ function Login() {
                 setErrorMessage("Username and/or Password do not match! Please try again!")
             }
         }
-
     }
 
     return (
@@ -159,13 +158,9 @@ function Login() {
                     <Title>SIGN IN</Title>
                     <Form onSubmit={loginUser}>
                         <Input placeholder="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-
                         <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
                         <Error> {errorMessage} </Error>
-
                         <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
-        
                         <HaveAccount>
                             Not Registered?<Link to={`/`} style={{ textDecoration: 'none' }} > Create New Account</Link>
                         </HaveAccount>
