@@ -71,9 +71,7 @@ const PersonalAdDashboard = ({ username }) => {
                 <AdDashboard>
                     {products.map((item) => (
                         <Product item={item} key={item.id} />
-
                     ))}
-
                 </AdDashboard>
 
                 <Link style={{ textDecoration: 'none' }} to={`/addProduct`}>

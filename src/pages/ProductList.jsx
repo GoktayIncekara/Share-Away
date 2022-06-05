@@ -66,17 +66,7 @@ const ProductList = () => {
                 <Select name = "city" onChange={handleFilters}>
                     {turkeyData.map((item) => (
                              <option value={item.il_adi}>{item.il_adi}</option>
-                            ))}
-                    {/* <Option disabled >City</Option>
-                    <Option>İstanbul</Option>
-                    <Option>İzmir</Option>
-                    <Option>Ankara</Option>
-                    <Option>Antalya</Option>
-                    <Option>Aydın</Option>
-                    <Option>Mersin</Option>
-                    <Option>Adana</Option>
-                    <Option>Kars</Option>
-                    <Option>Sinop</Option> */}
+                            ))}     
                 </Select>
                 <Select name = "shipping" onChange={handleFilters}>
                     <Option disabled >Delivery</Option>

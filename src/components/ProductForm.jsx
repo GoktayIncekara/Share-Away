@@ -227,7 +227,7 @@ const ProductForm = () => {
                 navigate('/Profile');
             }
             if (response.data.status === 'error') {
-                setErrorMessage("User session ended!");
+                setErrorMessage("Some of the inputs are not chosen.");
             }
         }
     }
