@@ -168,25 +168,27 @@ const PasswordButton = styled.button`
   }
 `
 const UserProfile = () => {
+
     window.scrollTo(0, 0);
+
     const navigate = useNavigate();
     const classesImg = useStylesImg();
 
     const token = localStorage.getItem('token')
-    const user = jwt.decode(localStorage.getItem('token'));
 
     if (!token) {
         navigate('/login', { replace: true })
     }
-    else {
-        const user = jwt.decode(token)
-        console.log(user)
-    }
+
+    const user = jwt.decode(token)
+    console.log("got the first token:" + user)
+
 
     const [passChangeForm, setPassChangeForm] = useState(false);
     const [profilePic, setProfilePic] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [errorMessage2, setErrorMessage2] = useState('');
+
     const imageHandler = (e) => {
 
         const reader = new FileReader();
@@ -196,15 +198,44 @@ const UserProfile = () => {
                 setProfilePic(e.target.files[0])
                 setErrorMessage("Ready to upload: Click ✓ to Complete!")
                 setErrorMessage2("Or Click X to Discard!")
+
             }
         }
         if (e.target.files[0]) {
-            reader.readAsDataURL(e.target.files[0]);
+            setProfilePic(e.target.files[0])
+
+
+
+            //localStorage.clear()
+            //localStorage.removeItem('token')
+            //navigate('login', { replace: true })
+
+            //setTimeout((window.location.href = '/profile'), 4000)
         }
     };
 
     async function ChangePicture(e) {
+        const reader = new FileReader();
 
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setProfilePic(e.target.files[0])
+                setErrorMessage("Ready to upload: Click ✓ to Complete!")
+                setErrorMessage2("Or Click X to Discard!")
+
+            }
+        }
+        if (e.target.files[0]) {
+            setProfilePic(e.target.files[0])
+
+
+
+            //localStorage.clear()
+            //localStorage.removeItem('token')
+            //navigate('login', { replace: true })
+
+            //setTimeout((window.location.href = '/profile'), 4000)
+        }
         if (profilePic == '') {
             setErrorMessage("No image file is chosen!")
             setTimeout(
@@ -212,22 +243,24 @@ const UserProfile = () => {
                 , 3500
             )
             window.location.href = '/profile'
+            //navigate('/homepage', { replace: true })
         }
         else {
             const formData = new FormData();
             formData.append('username', user.username)
             formData.append('profilePic', profilePic)
 
+            //setTimeout(localStorage.removeItem('token'), 4000)
+
             const response = await axios.post('http://localhost:5000/user/updateProfilePicture', formData)
 
             if (response.data.status == 'ok') {
+                //setTimeout(localStorage.setItem('token', response.data.user), 80000)
+                //navigate('/login', { replace: true })
+                //localStorage.clear()
                 localStorage.removeItem('token')
-                localStorage.clear()
-                setTimeout(
-                    localStorage.setItem('token', response.data.user)
-                    , 80000
-                )
-                window.location.href = '/homepage'
+                localStorage.setItem('token', response.data.user)
+                navigate('/login');
             }
             if (response.data.status == 'errorPPupdate') {
                 alert("Profile picture update procedure interrupted!")
@@ -258,14 +291,14 @@ const UserProfile = () => {
             <Wrapper>
                 <InfoContainer>
                     <ProfileContainer>
-                        <form onSubmit={ChangePicture} encType='multipart/form-data'>
+                        <form  encType='multipart/form-data'>
                             <ContainerImg>
                                 <UploadLabel >
                                     <ImageUpload htmlFor="input">
                                         <CameraAltIcon sx={{ margin: "10px" }} /> <h5>Update Photo</h5>
 
                                     </ImageUpload>
-                                    <Button type="submit" className={classesImg.button}>✔</Button>
+                                    <Button type="submit" onClick={() => ChangePicture()} className={classesImg.button} >✔</Button>
                                     <Button type="reset" onClick={() => RemovePicture()} className={classesImg.button}>X</Button>
                                 </UploadLabel>
                                 <Error> {errorMessage} </Error>
@@ -273,7 +306,7 @@ const UserProfile = () => {
                                 <ImgHolder>
                                     <Img src={require('../pictures/' + user.profilePic)} alt="" id="img" className="img" />
                                 </ImgHolder>
-                                <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
+                                <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" />
                             </ContainerImg>
 
                         </form>
