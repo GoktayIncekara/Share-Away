@@ -223,12 +223,14 @@ const ProductForm = () => {
             formData.append('token', localStorage.getItem('token'))
 
             const response = await axios.post('http://localhost:5000/user/addProduct', formData)
-
+            console.log("formdata",formData);
             if (response.data.status === 'ok') {
                 resetForm();
                 navigate('/Profile');
             }
             if (response.data.status === 'error') {
+                console.log("response",response);
+
                 setErrorMessage("Some of the inputs are not chosen.");
             }
         }

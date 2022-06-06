@@ -41,7 +41,7 @@ const Title = styled.h3`
 const Right = styled.div`
     flex: 1;
     padding: 20px;
-    ${mobile({backgroundColor: "#fcf5f5"})};
+    ${mobile({backgroundColor: "black"})};
 `
 const ContactItem = styled.div`
     margin-bottom: 20px;

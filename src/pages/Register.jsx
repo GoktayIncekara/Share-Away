@@ -299,7 +299,7 @@ const Register = () => {
                 setPassword('');
                 setConfirmPassword('');
                 setProfilePic(ProfilePlaceHolder);
-                navigate('/login');
+                navigate('/');
             }
             if (response.data.status == 'error') {
                 setErrorMessage("Email or username is already used! Please try again!")
@@ -347,8 +347,6 @@ const Register = () => {
                             <InputImg type="file" accept=".png, .jpg, .jpeg" name="profilePic" id="input" onChange={imageHandler} />
                         </ContainerImg>
 
-                        <Error> {errorMessage} <br/></Error>
-
                         <Input placeholder="Name" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
                         <Input placeholder="Last Name" type="text" required value={surname} onChange={(e) => setSurname(e.target.value)} />
                         <Input placeholder="Username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -357,6 +355,8 @@ const Register = () => {
                         <Input placeholder="Confirm Password" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                         <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <a style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer" href={`https://docs.google.com/document/d/1dSqpJOFqWAyWr2gBuFPgYGB-7TlK-V1BpOqEAhaKpFM/edit?usp=sharing`}>Privacy Policy </a>
                         </Agreement>
+
+                        <Error> {errorMessage} <br/></Error>
                         
                         <ButtonWrapper>
                             <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Register</Button>

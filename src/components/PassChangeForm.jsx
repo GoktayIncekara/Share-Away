@@ -173,7 +173,7 @@ function PassChangeForm(props) {
                     , 7000
                 )
                 resetForm();    
-                window.location.href = '/login';    
+                window.location.href = '/';    
         }}
         
     }

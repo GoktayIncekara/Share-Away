@@ -5,6 +5,7 @@ import {mobile} from "../responsive"
 import React from 'react';
 
 const Container = styled.div` 
+  ${mobile({ marginTop: "170px" })};
 `
 const CategoriesContainer = styled.div`
     display: flex;

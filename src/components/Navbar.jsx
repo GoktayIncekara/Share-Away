@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         },
         /*if the screen is smaller than small screen size, then*/
         [theme.breakpoints.down("sm")]: {
-            height: "30px",
+            height: "40px",
             width: "160px",
             margin: "5px 0px"
         }
@@ -83,7 +83,7 @@ const Navbar = () => {
     const token = localStorage.getItem('token')
 
     if (!token) {
-        navigate('/login', { replace: true })
+        navigate('/', { replace: true })
     }
 
     const user = jwt.decode(token)
@@ -92,7 +92,7 @@ const Navbar = () => {
     const LogOut = () => {
         localStorage.removeItem('token')
         localStorage.clear()
-        navigate('/login', { replace: true })
+        navigate('/', { replace: true })
     }
 
     return (

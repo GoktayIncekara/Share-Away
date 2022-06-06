@@ -39,7 +39,7 @@ const ExplanationContainer = styled.div`
     background-color: #35858B;
     flex-direction: column;
     display: none;
-    ${mobile({display: "block"})};
+    ${mobile({display: "block", marginTop:"160px"})};
 `
 const ExplanationTitle = styled.h1`
     font-size: 70px;
