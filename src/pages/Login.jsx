@@ -179,7 +179,7 @@ function Login() {
                         <Error> {errorMessage} <br/> </Error>
                         <Button type="submit" className={classes.button} sx={{ width: 'auto' }}>Sign In</Button>
                         <HaveAccount>
-                            Not Registered?<Link to={`/`} style={{ textDecoration: 'none' }} > Create New Account</Link>
+                            Not Registered?<Link to={`/register`} style={{ textDecoration: 'none' }} > Create New Account</Link>
                         </HaveAccount>
                     </Form>
                 </Wrapper>

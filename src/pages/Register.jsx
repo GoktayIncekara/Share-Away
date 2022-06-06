@@ -242,23 +242,23 @@ const Register = () => {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!")
+            setErrorMessage("Passwords do not match!")
             resetPassword()
         }
         else if (password.length < 6) {
-            alert("Password should be minimum 6 characters long!")
+            setErrorMessage("Password should be minimum 6 characters long!")
             resetPassword() 
         }
         else if (username.length < 5) {
-            alert("Username should be minimum 5 characters long!")
+            setErrorMessage("Username should be minimum 5 characters long!")
             resetPassword() 
         }
         else if (name.length < 3) {
-            alert("Name should be minimum 2 characters long!")
+            setErrorMessage("Name should be minimum 2 characters long!")
             resetPassword()
         }
         else if (surname.length < 3) {
-            alert("Surname should be minimum 2 characters long!")
+            setErrorMessage("Surname should be minimum 2 characters long!")
             resetPassword()
         }
         else if (!validateUserName(username)){
@@ -363,7 +363,7 @@ const Register = () => {
                             <Button type="reset" onClick={() => resetForm()} className={classes.button}>Reset</Button>
                         </ButtonWrapper>
                         <HaveAccount>
-                            Already have an account? <Link to={`/login`} style={{ textDecoration: 'none' }}>Log in</Link>
+                            Already have an account? <Link to={`/`} style={{ textDecoration: 'none' }}>Log in</Link>
                         </HaveAccount>
 
                     </Form>

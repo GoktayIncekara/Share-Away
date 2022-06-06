@@ -16,7 +16,7 @@ const Home = () => {
     const token = localStorage.getItem('token')
 
     if (!token) {
-      navigate('/login', { replace: true })
+      navigate('/', { replace: true })
     }
 
     else {
@@ -24,7 +24,7 @@ const Home = () => {
       if (!user) {
         localStorage.removeItem('token')
         localStorage.clear()
-        navigate('/login', { replace: true })
+        navigate('/', { replace: true })
       }
       console.log(user)
     }
