@@ -212,7 +212,7 @@ const ProductForm = () => {
         }
         else {
             const formData = new FormData();
-
+            console.log(title);
             formData.append('title', title);
             formData.append('description', description);
             formData.append('category', category);
@@ -224,13 +224,16 @@ const ProductForm = () => {
 
             const response = await axios.post('http://localhost:5000/user/addProduct', formData)
             console.log("formdata",formData);
+
+            for (var p of formData) {
+                console.log(p);
+              }
+              
             if (response.data.status === 'ok') {
                 resetForm();
                 navigate('/Profile');
             }
             if (response.data.status === 'error') {
-                console.log("response",response);
-
                 setErrorMessage("Some of the inputs are not chosen.");
             }
         }

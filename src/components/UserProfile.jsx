@@ -194,8 +194,8 @@ const UserProfile = () => {
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setProfilePic(e.target.files[0])
-                setErrorMessage("Ready to upload: Click ✓ to Complete!")
-                setErrorMessage2("Or Click X to Discard!")
+                setErrorMessage("Click ✓ to Upload!")
+                setErrorMessage2("Click X to Discard!")
             }
         }
         if (e.target.files[0]) {
